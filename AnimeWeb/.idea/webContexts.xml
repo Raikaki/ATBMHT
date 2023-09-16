@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/BonusList.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/ChapterSetting.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/MovieAdd.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/User-Add.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/User-Edit.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/header.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/sidebar.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/anime-main/anime-detail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/anime-main" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/anime-main/categories.jsp" value="file://$PROJECT_DIR$/src/main/webapp/anime-main" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/anime-main/checkout.jsp" value="file://$PROJECT_DIR$/src/main/webapp/anime-main" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/anime-main/header.jsp" value="file://$PROJECT_DIR$/src/main/webapp/anime-main" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/anime-main/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp/anime-main" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/anime-main/login.jsp" value="file://$PROJECT_DIR$/src/main/webapp/anime-main" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/anime-main/profile.jsp" value="file://$PROJECT_DIR$/src/main/webapp/anime-main" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/anime-main/purchased-Movie.jsp" value="file://$PROJECT_DIR$/src/main/webapp/anime-main" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/anime-main/wish-list.jsp" value="file://$PROJECT_DIR$/src/main/webapp/anime-main" />
+      </map>
+    </option>
+  </component>
+</project>
