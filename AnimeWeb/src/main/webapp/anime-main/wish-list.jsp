@@ -42,7 +42,7 @@
 <c:url var="profileServlet" value="/anime-main/profile.jsp"/>
 <c:url var="MovieDetail" value="/anime-main/MovieDetail"/>
 <c:url var="Index" value="/anime-main/Index"/>
-<c:url  var="checkoutWishList" value="/anime-main/AddWishList"/>
+<c:url var="checkoutWishList" value="/anime-main/AddWishList"/>
 <div id="preloder">
     <div class="loader"></div>
 </div>
@@ -60,7 +60,7 @@
                                 <div class="section-title">
 
                                     <h4>
-                                       <fmt:message>content.wishlist</fmt:message>
+                                        <fmt:message>content.wishlist</fmt:message>
                                     </h4>
 
                                 </div>
@@ -128,7 +128,8 @@
                     <div class="payment">
                         <div class="bill">
                             <div>
-                                <p><fmt:message>content.selectedMovie</fmt:message> <span id="selectedMovieNames"></span></p>
+                                <p><fmt:message>content.selectedMovie</fmt:message> <span
+                                        id="selectedMovieNames"></span></p>
 
                                 <p><fmt:message>content.totalOder</fmt:message> <span id="totalPrice"></span>đ</p>
                             </div>
@@ -137,10 +138,12 @@
                         </div>
 
                         <div style="margin-top: -30px;"><a href="${checkoutWishList}?action=checkout">
-                            <button class="checkout-button" id="checkout-button"><fmt:message>button.payOder</fmt:message></button>
+                            <button class="checkout-button" id="checkout-button">
+                                <fmt:message>button.payOder</fmt:message></button>
                         </a></div>
                         <div style="margin-top: -30px;"><a href="${checkoutWishList}?action=checkoutAll">
-                            <button class="checkout-button" id="checkoutAll-button"><fmt:message>button.payAllOder</fmt:message></button>
+                            <button class="checkout-button" id="checkoutAll-button">
+                                <fmt:message>button.payAllOder</fmt:message></button>
                         </a></div>
                         <div style="margin-top: -30px;">
                             <button class="removeAll"><fmt:message>button.removeAll</fmt:message></button>

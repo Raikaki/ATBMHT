@@ -8,8 +8,7 @@
 <c:url var="GenreList" value="/admin/GenreList"/>
 <c:url var="SupplierList" value="/admin/SupplierList"/>
 
-<c:url var="BlogList" value="/admin/BlogList"/>
-<c:url var="AddBlog" value="/admin/AddBlog"/>
+
 
 <c:url var="WishList" value="/admin/PurchasedHistory"/>
 <c:url var="ProducerList" value="/admin/ProducerList"/>
@@ -118,18 +117,6 @@
                  </ul>
              </li>
 
-                <li class="parentActive"><a href="#blog" class="iq-waves-effect collapsed"
-                       data-toggle="collapse" aria-expanded="false"><span
-                        class="ripple rippleEffect"></span><i
-                        class="las la-user-tie iq-arrow-left"></i><span>Quản lý Blog</span><i
-                        class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                    <ul id="blog" class="iq-submenu collapse"
-                        data-parent="#iq-sidebar-toggle" style="">
-                        <li><a href="${AddBlog}"><i class="las la-plus-circle"></i>
-                           Thêm mới Blog</a></li>
-                        <li><a href="${BlogList}?action=view"><i class="las la-th-list"></i>Xem danh sách blog</a></li>
-                    </ul>
-                </li>
 
 
                 <li class="parentActive">
