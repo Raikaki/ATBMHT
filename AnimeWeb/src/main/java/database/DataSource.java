@@ -13,9 +13,9 @@ import org.jdbi.v3.core.Jdbi;
 
 
 public class DataSource {
-	private static final String DB_URL = "jdbc:mysql://35.187.233.34/animeweb";
+	private static final String DB_URL = "jdbc:mysql://localhost:3306/animeweb";
 	private static final String USER = "root";
-	private static final String PASS = "123456";
+	private static final String PASS = "hcdat1232580";
 	private static final HikariConfig config = new HikariConfig();
 	private static final String CLASS_NAME = "com.mysql.cj.jdbc.Driver";
 	static HikariDataSource ds;
