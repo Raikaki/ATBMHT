@@ -119,7 +119,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.google.api-client/google-api-client
 // https://mvnrepository.com/artifact/com.google.apis/google-api-services-analyticsreporting
     implementation 'com.google.apis:google-api-services-analyticsreporting:v4-rev174-1.25.0'
-
+    implementation 'org.jsoup:jsoup:1.16.1'
 
     implementation 'com.google.api-client:google-api-client:1.15.0'
 
@@ -153,10 +153,8 @@ tasks.withType(JavaCompile) {
 apply plugin: 'org.hidetake.ssh'
 remotes {
     host {
-
-
-        host = '34.143.149.177'
-        user = 'g20130012'
+        host = '35.213.134.216'
+        user = 'yaemiko27092002'
         identity =file('C:/Users/Admin/.ssh/id_rsa')
 
     }
@@ -164,40 +162,84 @@ remotes {
 ssh.settings {
     knownHosts = allowAnyHosts
 }
-task docker_app_start {
-    doLast {
-        println 'begin docker_app_start'
-        ssh.run {
-            session(remotes.host) {
-                execute 'docker stop tomcat9', ignoreError: true
-                execute 'docker run -it  -d ' +
-                        '--name tomcat9 ' +
-                        '-v /usr/deploy:/usr/local/tomcat/webapps ' +
-                        '-p 80:8080 ' +
-                        'tomcat:9.0&'
-            }
-        }
-    }
-}
+//task docker_app_start {
+//    doLast {
+//        println 'begin docker_app_start'
+//        ssh.run {
+//            session(remotes.host) {
+//                execute 'docker stop tomcat9', ignoreError: true
+//                execute 'docker run -it  -d ' +
+//                        '--name tomcat9 ' +
+//                        '-v /usr/deploy:/usr/local/tomcat/webapps ' +
+//                        '-p 80:8080 ' +
+//                        'tomcat:9.0&'
+//            }
+//        }
+//    }
+//}
 task docker_upload_file_to_server {
     doLast {
         println 'begin docker_upload_file_to_server'
         ssh.run {
             session(remotes.host) {
-                remove '/usr/deploy/.war'
-
                 put from: "${project.projectDir}/build/libs/AnimeWeb.war",
                         into: "/usr/deploy/.war"
+
             }
         }
+
     }
 }
+//task docker_upload_file_to_server {
+//    doLast {
+//        println 'begin docker_upload_file_to_server'
+//        ssh.run {
+//            session(remotes.host) {
+//                put from: "${project.projectDir}/build/libs/ca_bundle.crt",
+//                        into: "/usr/deploy/ca_bundle.crt"
+//                put from: "${project.projectDir}/build/libs/certificate.crt",
+//                        into: "/usr/deploy/certificate.crt"
+//                put from: "${project.projectDir}/build/libs/private.key",
+//                        into: "/usr/deploy/private.key"
+//            }
+//        }
+//
+//    }
+//}
+//task docker_app_start {
+//        doLast {
+//            println 'begin docker_app_start'
+//            ssh.run {
+//                session(remotes.host) {
+//                    execute '-v /usr/deploy/certs:/usr/local/tomcat/certs'
+//                }
+//            }
+//        }
+//    }
+//task docker_app_start {
+//    doLast {
+//        println 'begin docker_app_start'
+//        ssh.run {
+//            session(remotes.host) {
+//                execute 'docker stop tomcat9', ignoreError: true
+//                execute 'docker run -it -d ' +
+//                        '--name tomcat9 ' +
+//                        '-v /usr/deploy:/usr/local/tomcat/webapps ' +
+//                        '-p 80:8080 ' + '-p 443:443'+
+//                        'tomcat:9.0&'
+//            }
+//        }
+//    }
+//}
+
+
+
 
 task docker_deploy {
-    docker_deploy.dependsOn docker_app_start
-    docker_deploy.dependsOn docker_upload_file_to_server
-    docker_deploy.dependsOn build
-    tasks.getByName('docker_app_start').mustRunAfter docker_upload_file_to_server
+//    docker_deploy.dependsOn docker_app_start
+////    docker_deploy.dependsOn docker_upload_file_to_server
+//    docker_deploy.dependsOn build
+//    tasks.getByName('docker_app_start').mustRunAfter docker_upload_file_to_server
 }
 
 targetCompatibility = JavaVersion.VERSION_17

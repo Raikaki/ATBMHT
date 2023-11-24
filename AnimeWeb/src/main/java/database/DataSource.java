@@ -13,7 +13,7 @@ import org.jdbi.v3.core.Jdbi;
 
 
 public class DataSource {
-	private static final String DB_URL = "jdbc:mysql://35.187.233.34/animeweb";
+	private static final String DB_URL = "jdbc:mysql://34.126.138.48/animeweb";
 	private static final String USER = "root";
 	private static final String PASS = "123456";
 	private static final HikariConfig config = new HikariConfig();
@@ -50,7 +50,9 @@ public class DataSource {
 		return ds.getConnection();
 	}
 
-
+	public static void main(String[] args) throws SQLException {
+		getConnection();
+	}
 
 
 }
