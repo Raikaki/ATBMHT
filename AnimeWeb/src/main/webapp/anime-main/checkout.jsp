@@ -135,15 +135,17 @@
                         <div class="price_total">
                             <div>
                                 Total Price: ${sessionScope.order.totalPrice} VND
+                                <div><input type="hidden" name="denominations" value="${sessionScope.order.totalPrice}"></div>
+                                <input type="hidden" name="values" value="0">
                             </div>
                         </div>
 
                     </div>
                     <a href="${check}?action=checkout">
-                        <button id="buyMovie" >Pay</button>
+                        <button id="buyMovie" >Xác nhận</button>
                     </a>
                     <a href="${check}?action=back">
-                        <button id="buyMovie">Back</button>
+                        <button id="buyMovie">Quay lại</button>
                     </a>
                 </div>
                 <div class="col-md-6">
@@ -184,6 +186,92 @@
     </c:if>
     <c:import url="/anime-main/footer.jsp"/>
 </div>
+<script>
+
+    let currency = 0;
+
+    async function convertCurrency() {
+
+        var selectedValue = $("input[name='denominations']").val();
+
+        const url = `https://api.apilayer.com/exchangerates_data/convert?to=USD&from=VND&amount=` + selectedValue;
+        try {
+            const response = await fetch(url, {
+                headers: {
+                    "apikey": "CaL5Dsgtc1FeF8gQFWJMxOrPtvc0euON"
+                }
+            });
+            const data = await response.json();
+            const convertedAmount = data.result.toFixed(2);
+            console.log(convertedAmount);
+            console.log(data);
+            currency = convertedAmount;
+            return convertedAmount;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    async function createPaypalOrder() {
+        try {
+            const selectedValue = await convertCurrency();
+            console.log(selectedValue);
+            return fetch("${paypal}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    denominations: selectedValue,
+                }),
+            })
+                .then((response) => response.json())
+                .then((order) => order.id);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    paypal.Buttons({
+        async createOrder() {
+            return createPaypalOrder();
+        },
+        onApprove(data) {
+            var values = $("input[name='values']").val();
+            var selectedValue = $("input[name='denominations']:checked").val();
+
+            console.log(values);
+            console.log(selectedValue);
+            return fetch("${recharge}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    balance: selectedValue,
+                    orderID: data.orderID
+                })
+            })
+                .then((response) => response.json())
+                .then((orderData) => {
+                    console.log(orderData);
+                    console.log(orderData.purchaseUnits[0].payments.captures[0]);
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    const transaction = orderData.purchaseUnits[0].payments.captures[0];
+                    Swal.fire({
+                        title: 'Thanh toán thành công',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        location.reload();
+                    });
+
+                });
+        }
+    }).render('#paypal-button-container')
+</script>
+
 <script>
 
 </script>

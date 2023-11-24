@@ -55,15 +55,6 @@ public class CheckRechargeServlet extends HttpServlet {
                 System.out.println(response1.statusCode());
                 Order capturedOrder = response1.result();
                 HttpSession session = request.getSession();
-                Account user = (Account) session.getAttribute("user");
-                DAORecharge daoRecharge = new DAORecharge();
-                double balance = user.getBalance();
-                String fomat = String.valueOf(selectedValue);
-                user.setBalance(balance + (selectedValue * 1));
-                daoRecharge.updateBalance(user.getId(), user.getBalance());
-                String balanceFluctuations = user.fluctuationsIncreaseBalance(selectedValue);
-                daoRecharge.insertBalanceFluctuations(user.getId(), balanceFluctuations, "Nạp tiền từ PayPal",
-                        selectedValue * 1);
 //                System.out.println();
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");

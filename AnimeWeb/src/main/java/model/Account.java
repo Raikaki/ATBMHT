@@ -32,7 +32,17 @@ public class Account {
 	private List<Role> roles;
 	private List<Movie> moviesFollow;
 	private List<Movie> moviesPurchased;
+	private List<Bill> listBill;
 	private LocalDateTime joinDate;
+
+	public List<Bill> getListBill() {
+		return listBill;
+	}
+
+	public void setListBill(List<Bill> listBill) {
+		this.listBill = listBill;
+	}
+
 	private String fullName;
 	private String phone;
 	private double balance;

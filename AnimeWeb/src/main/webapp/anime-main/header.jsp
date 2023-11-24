@@ -230,8 +230,6 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <c:url value="/anime-main/gotoblog" var="blog"/>
-                                <li><a href="${blog}"><fmt:message>menu.ourblog</fmt:message></a></li>
                                 <li><a
 
                                         href="https://www.facebook.com/profile.php?id=100093516980874"><fmt:message>menu.contracts</fmt:message></a>
@@ -266,6 +264,9 @@
                                 <li>
                                     <a href="${wishList}"><fmt:message>content.wishlist</fmt:message> <i
                                             class="fas fa-film"></i></a>
+                                </li>
+                                <li>
+                                    <a href="bill.jsp"><fmt:message>content.bill</fmt:message> </a>
                                 </li>
                                 <li>
 
