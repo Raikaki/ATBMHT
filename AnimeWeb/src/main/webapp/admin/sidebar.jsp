@@ -22,6 +22,7 @@
 <c:url var="userAdd" value="/admin/UserAdd"/>
 <c:url var="userList" value="/admin/UserList"/>
 <c:url var="logList" value="/admin/LogList"/>
+<c:url var="ViewListKey" value="/admin/ViewListKey"/>
 <script src="js/jquery.min.js"></script>
 <div class="iq-sidebar">
     <div class="iq-navbar-logo d-flex justify-content-between">
@@ -163,6 +164,16 @@
 
                     </ul>
                 </li>
+                <li class="parentActive">
+                    <a href="#keys" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i
+                            class="ri-table-line iq-arrow-left"></i><span>Quản lý chữ ký</span><i
+                            class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                    <ul id="keys" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                        <li class="childActive"><a href="${ViewListKey}"><i class="ri-table-line"></i>Danh sách khóa</a></li>
+
+                    </ul>
+                </li>
+
             </ul>
         </nav>
         <div class="p-3"></div>

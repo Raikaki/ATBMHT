@@ -1,17 +1,14 @@
 package security;
 
-import java.io.FileInputStream;
 import java.security.*;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateFactory;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
-import javax.crypto.*;
-
 public class DSA {
 
     public static KeyPair generateKeyPair() throws Exception {
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
-        keyGen.initialize(1024, new SecureRandom());
+        keyGen.initialize(2048, new SecureRandom());
         KeyPair keyPair = keyGen.generateKeyPair();
         return keyPair;
     }
@@ -39,38 +36,52 @@ public class DSA {
     public static byte[] fromBase64(String base64) {
         return Base64.getDecoder().decode(base64);
     }
-    public static Certificate getCertificate() throws Exception {
-        CertificateFactory cf = CertificateFactory.getInstance("X.509");
-        Certificate certificate = cf.generateCertificate(new FileInputStream("d:/file/ds/certificate.pem"));
-        return certificate;
-    }
+//    public static Certificate getCertificate() throws Exception {
+//        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+//        Certificate certificate = cf.generateCertificate(new FileInputStream("d:/file/ds/certificate.pem"));
+//        return certificate;
+//    }
+//
+//    public static boolean verifyCertificate(Certificate certificate) throws Exception {
+//
+//        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+//        Certificate caCertificate = cf.generateCertificate(new FileInputStream("d:/file/ds/caCertificate.pem"));
+//        PublicKey caPublicKey = caCertificate.getPublicKey();
+//        certificate.verify(caPublicKey);
+//        return true;
+//    }
+public static boolean verifyPublicKey(String keyInput) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    if (keyInput.trim().equals(""))
+        return false;
+       byte[] publicKeyBytes = Base64.getDecoder().decode(keyInput);
+       KeyFactory keyFactory = KeyFactory.getInstance("DSA");
+       X509EncodedKeySpec keySpec = new X509EncodedKeySpec(publicKeyBytes);
+       keyFactory.generatePublic(keySpec);
+       return true;
 
-    public static boolean verifyCertificate(Certificate certificate) throws Exception {
-
-        CertificateFactory cf = CertificateFactory.getInstance("X.509");
-        Certificate caCertificate = cf.generateCertificate(new FileInputStream("d:/file/ds/caCertificate.pem"));
-        PublicKey caPublicKey = caCertificate.getPublicKey();
-        certificate.verify(caPublicKey);
-        return true;
-    }
+}
     public static void main(String[] args) throws Exception {
 
+//
         KeyPair keyPair = generateKeyPair();
-        PrivateKey privateKey = keyPair.getPrivate();
+//        PrivateKey privateKey = keyPair.getPrivate();
         PublicKey publicKey = keyPair.getPublic();
+        System.out.println(toBase64(publicKey.getEncoded()));
 
 
-        String message = "This is a test message";
-        byte[] signatureBytes = signMessage(message, privateKey);
-        String signatureBase64 = toBase64(signatureBytes);
-        System.out.println("Signature: " + signatureBase64);
-
-
-        boolean verified = verifyMessage(message, publicKey, signatureBytes);
-        System.out.println("Verified: " + verified);
-
-        message = "This is a fake message";
-        verified = verifyMessage(message, publicKey, signatureBytes);
-        System.out.println("Verified: " + verified);
+//
+//
+//        String message = "This is a test message";
+//        byte[] signatureBytes = signMessage(message, privateKey);
+//        String signatureBase64 = toBase64(signatureBytes);
+//        System.out.println("Signature: " + signatureBase64);
+//
+//
+//        boolean verified = verifyMessage(message, publicKey, signatureBytes);
+//        System.out.println("Verified: " + verified);
+//
+//        message = "This is a fake message";
+//        verified = verifyMessage(message, publicKey, signatureBytes);
+//        System.out.println("Verified: " + verified);
     }
 }

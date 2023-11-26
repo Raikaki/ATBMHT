@@ -3107,7 +3107,7 @@ table{
 
 
 }
-table th{
+table:not(#key-list-table) th{
 	height: 70px;
 }
 .checkout__detail{
@@ -3227,7 +3227,7 @@ color: whitesmoke;
 	height: 100px; /* Đặt chiều cao tối đa cho bảng */
 }
 
-.table_film table th {
+.table_film table:not(#key-list-table) th {
 	position: sticky; /* Cho các tiêu đề cố định khi cuộn */
 	top: 0;
 }

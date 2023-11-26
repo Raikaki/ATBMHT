@@ -15,6 +15,7 @@
 <c:url var="listPurchased" value="/anime-main/ListPurchased"/>
 <c:url var="wishList" value="/anime-main/wishList"/>
 <c:url var="index" value="/anime-main/Index"/>
+<c:url var="keyDetail" value="/anime-main/KeyDetail"/>
 <c:url var="logOut" value="/anime-main/logOut"/>
 <fmt:setBundle basename="app"/>
 <link rel="icon" href="/anime-main/img/logonweb.png" type="image/png">
@@ -35,27 +36,27 @@
     gtag('config', 'G-Q5H83WY80P');
 </script>
 <script>
-    // default options
-    ConsoleBan.init()
-    // custom options
-    ConsoleBan.init({
-        redirect: '../cook.jsp'
-    })
-
-    let isCtrl = false;
-    document.onkeyup=function(e){
-        if(e.which == 17) isCtrl=false;
-    }
-    document.onkeydown=function(e){
-        if(e.which == 17) isCtrl=true;
-        if(e.which == 85 && isCtrl == true) {
-            //run code for CTRL+U -- ie, whatever!
-            window.location.href = "../cook.jsp";
-
-            return false;
-        }
-    }
-    document.addEventListener('contextmenu', event => event.preventDefault());
+    // // default options
+    // ConsoleBan.init()
+    // // custom options
+    // ConsoleBan.init({
+    //     redirect: '../cook.jsp'
+    // })
+    //
+    // let isCtrl = false;
+    // document.onkeyup=function(e){
+    //     if(e.which == 17) isCtrl=false;
+    // }
+    // document.onkeydown=function(e){
+    //     if(e.which == 17) isCtrl=true;
+    //     if(e.which == 85 && isCtrl == true) {
+    //         //run code for CTRL+U -- ie, whatever!
+    //         window.location.href = "../cook.jsp";
+    //
+    //         return false;
+    //     }
+    // }
+    // document.addEventListener('contextmenu', event => event.preventDefault());
 
 
 </script>
@@ -102,9 +103,7 @@
                         <c:url var="wallet" value="/anime-main/walletView"/>
                         <a href="${wallet}"><i class="fas fa-wallet fa-lg" style="color: #ffffff;"></i></a>
                         <fmt:formatNumber value="${sessionScope.user.balance}"
-
                                           type="number" pattern="#,##0"/> VND
-
                     </div>
                 </c:if>
                 <div class="header__right2">
@@ -137,6 +136,7 @@
                                     </li>
                                     <li><a href="${listFollow}"><fmt:message>header.follow</fmt:message></a>
                                     <li><a href="${listPurchased}"><fmt:message>content.purchase</fmt:message></a></li>
+                                    <li><a href="${keyDetail}"><fmt:message>content.keyDetail</fmt:message></a></li>
                                     <li><a href="${logOut}">
                                         <button
                                                 class="fas fa-sign-out-alt"></button>
@@ -153,7 +153,7 @@
                                     </a></li>
                                     <li><a href="${listFollow}"><fmt:message>header.follow</fmt:message></a>
                                     <li><a href="${listPurchased}"><fmt:message>content.purchase</fmt:message></a></li>
-                                    <li><a href="${logOut}">
+                                       <li><a href="${logOut}">
                                         <button
                                                 class="fas fa-sign-out-alt"></button>
                                     </a></li>
@@ -182,6 +182,7 @@
                                     </li>
                                     <li><a href="${listFollow}"><fmt:message>header.follow</fmt:message></a>
                                     <li><a href="${listPurchased}"><fmt:message>content.purchase</fmt:message></a></li>
+                                    <li><a href="${keyDetail}"><fmt:message>content.keyDetail</fmt:message></a></li>
                                     <c:url var="adm" value="/admin/dashBoard"/>
                                     <li><a href="${adm}">
                                         <button class="fa fa-cog"></button>

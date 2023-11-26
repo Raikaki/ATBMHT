@@ -6,6 +6,7 @@
 <c:url var="Dashboard" value="/admin/dashBoard"/>
 <c:url var="UserList" value="/admin/UserList"/>
 <c:url var="UserEdit" value="/admin/UserEdit"/>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/console-ban@5.0.0/dist/console-ban.min.js"></script>
@@ -14,26 +15,26 @@
 <script src="https://cdn.jsdelivr.net/npm/console-ban@5.0.0/dist/console-ban.min.js"></script>
 <script>
    // default options
-   ConsoleBan.init()
-   // custom options
-   ConsoleBan.init({
-      redirect: '../cook.jsp'
-   })
-
-   let isCtrl = false;
-   document.onkeyup=function(e){
-      if(e.which == 17) isCtrl=false;
-   }
-   document.onkeydown=function(e){
-      if(e.which == 17) isCtrl=true;
-      if(e.which == 85 && isCtrl == true) {
-         //run code for CTRL+U -- ie, whatever!
-         window.location.href = "../cook.jsp";
-
-         return false;
-      }
-   }
-   document.addEventListener('contextmenu', event => event.preventDefault());
+   // ConsoleBan.init()
+   // // custom options
+   // ConsoleBan.init({
+   //    redirect: '../cook.jsp'
+   // })
+   //
+   // let isCtrl = false;
+   // document.onkeyup=function(e){
+   //    if(e.which == 17) isCtrl=false;
+   // }
+   // document.onkeydown=function(e){
+   //    if(e.which == 17) isCtrl=true;
+   //    if(e.which == 85 && isCtrl == true) {
+   //       //run code for CTRL+U -- ie, whatever!
+   //       window.location.href = "../cook.jsp";
+   //
+   //       return false;
+   //    }
+   // }
+   // document.addEventListener('contextmenu', event => event.preventDefault());
 
 
 </script>
