@@ -22,7 +22,6 @@ public class forgotPassword extends HttpServlet {
         String email = request.getParameter("email");
         String name = request.getParameter("userName");
         request.removeAttribute("success");
-
         HttpSession session = request.getSession();
         session.removeAttribute("success");
         Date now;

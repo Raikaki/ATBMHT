@@ -5,15 +5,18 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 public class DSA {
-
-    public static KeyPair generateKeyPair() throws Exception {
+    private PublicKey publicKey;
+    private PrivateKey privateKey;
+    public void generateKey() throws Exception {
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
         keyGen.initialize(2048, new SecureRandom());
         KeyPair keyPair = keyGen.generateKeyPair();
-        return keyPair;
+        publicKey = keyPair.getPublic();
+        privateKey = keyPair.getPrivate();
+
     }
 
-    public static byte[] signMessage(String message, PrivateKey privateKey) throws Exception {
+    public byte[] signMessage(String message, PrivateKey privateKey) throws Exception {
         Signature signature = Signature.getInstance("SHA1withDSA");
         signature.initSign(privateKey);
         signature.update(message.getBytes());
@@ -21,7 +24,7 @@ public class DSA {
         return signatureBytes;
     }
 
-    public static boolean verifyMessage(String message, PublicKey publicKey, byte[] signatureBytes) throws Exception {
+    public boolean verifyMessage(String message, PublicKey publicKey, byte[] signatureBytes) throws Exception {
         Signature signature = Signature.getInstance("SHA1withDSA");
         signature.initVerify(publicKey);
         signature.update(message.getBytes());
@@ -29,11 +32,13 @@ public class DSA {
         return verified;
     }
 
-    public static String toBase64(byte[] bytes) {
-        return Base64.getEncoder().encodeToString(bytes);
+    public String publicKeyToBase64() {
+        return Base64.getEncoder().encodeToString(publicKey.getEncoded());
     }
-
-    public static byte[] fromBase64(String base64) {
+    public String privateKeyToBase64() {
+        return Base64.getEncoder().encodeToString(privateKey.getEncoded());
+    }
+    public byte[] fromBase64(String base64) {
         return Base64.getDecoder().decode(base64);
     }
 //    public static Certificate getCertificate() throws Exception {
@@ -60,13 +65,33 @@ public static boolean verifyPublicKey(String keyInput) throws NoSuchAlgorithmExc
        return true;
 
 }
+
+
+
+
+    public PublicKey getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(PublicKey publicKey) {
+        this.publicKey = publicKey;
+    }
+
+    public PrivateKey getPrivateKey() {
+        return privateKey;
+    }
+
+    public void setPrivateKey(PrivateKey privateKey) {
+        this.privateKey = privateKey;
+    }
+
     public static void main(String[] args) throws Exception {
 
 //
-        KeyPair keyPair = generateKeyPair();
+//        KeyPair keyPair = generateKeyPair();
 //        PrivateKey privateKey = keyPair.getPrivate();
-        PublicKey publicKey = keyPair.getPublic();
-        System.out.println(toBase64(publicKey.getEncoded()));
+//        PublicKey publicKey = keyPair.getPublic();
+//        System.out.println(toBase64(publicKey.getEncoded()));
 
 
 //

@@ -68,7 +68,7 @@
                               </span>
       <span class="createKey float-right mb-3 mr-2">
                               <button class="btn btn-sm iq-bg-success" style="background:#ecfff6 !important;color: #65f9b3!important"><i
-                                      class="ri-add-fill"><span class="pl-1">Tạo key</span></i>
+                                      class="ri-add-fill" type="button" onclick="createKey()"><span class="pl-1">Tạo key</span></i>
                               </button>
                               </span>
       <div id="addArea">
@@ -79,6 +79,7 @@
              aria-describedby="user-list-page-info" data-stripe-classes="[]" style="text-align: center">
         <thead>
         <tr>
+          <th></th>
           <th>id</th>
           <th>Public key</th>
           <th>Ngày tạo</th>
@@ -91,6 +92,7 @@
         <tbody>
         <c:forEach var="item" items="${requestScope.keyList}">
           <tr style="background-color:rgba(0,0,0,.05)">
+            <th></th>
             <td>${item.id}</td>
             <td style="
     max-width: 200px;
@@ -99,7 +101,7 @@
             <td>${item.dayExpired}</td>
             <td>${item.dayCanceled}</td>
             <td>
-              <div id="renderIsActive${item.id}">
+
               <c:if test="${item.status==1}">
               <span class="badge iq-bg-success">
 															</c:if>
@@ -107,7 +109,6 @@
 																<span class="badge iq-bg-danger">
 															</c:if>
                                                                     ${item.statusDescription}</span>
-            </div>
             </td>
             <td>
               <c:if test="${item.status==1}">
@@ -153,10 +154,24 @@
   $(document).ready(function () {
     tableKey=$('#key-list-table').DataTable({
       "stripeClasses": [],
+      rowId: 'row_num',
+      columnDefs: [ {
+        targets: 0,
+        data: null,
+        defaultContent: '',
+        title: 'STT',
+        className: 'dt-center',
+        orderable: false,
+        searchable: false,
+        render: function (data, type, row, meta) {
+
+          return meta.row + 1;
+        }
+      } ],
+      order: [[ 0, 'asc' ]],
       "searching": true,
       "sorting": true,
       dom: 'Bfrtip',
-
       buttons: [
         {
           extend: 'copy',
@@ -279,23 +294,23 @@
               return;
             }
 
-              let newBonus = JSON.parse((JSON.parse(data)).newKey);
-            let status = newBonus.status;
-            let statusString = newBonus.status==1?`<span class="badge iq-bg-success">`:`<span class="badge iq-bg-danger">`;
-            let bt = newBonus.status==1?`<button class="btn btn-danger" type="submit">
+            let key = JSON.parse((JSON.parse(data)).newKey);
+            let status = key.status;
+            let statusString = key.status==1?`<span class="badge iq-bg-success">`:`<span class="badge iq-bg-danger">`;
+            let bt = key.status==1?`<button class="btn btn-danger"type="button" onclick="lostKey(this)">
                       <fmt:message>button.lost</fmt:message>
                     </button>`:"";
-              let appendInsert=`<tr style="background-color:rgba(0,0,0,.05)">`
-            +`<td>`+newBonus.id+`</td>
+              let appendInsert=`<tr style="background-color:rgba(0,0,0,.05)"> <td></td>`
+            +`<td>`+key.id+`</td>
             <td style="
     max-width: 200px;
-    word-break: break-all;">`+newBonus.key+`</td>
-            <td>`+newBonus.dayReceive+`</td>
-            <td>`+newBonus.dayExpired+`</td>
-            <td>`+newBonus.dayCanceled+`</td>
+    word-break: break-all;">`+key.key+`</td>
+            <td>`+key.dayReceive+`</td>
+            <td>`+key.dayExpired+`</td>
+            <td>`+key.dayCanceled+`</td>
             <td>
-              <div id="renderIsActive`+newBonus.id+`">`+statusString+
-                                                                    newBonus.statusDescription+`</span>
+              <div id="renderIsActive`+key.id+`">`+statusString+
+                      key.statusDescription+`</span>
             </div>
             </td>
             <td>
@@ -335,12 +350,105 @@
       confirmButtonText: 'Xác nhận!'
     }).then((result) => {
       if (result.isConfirmed) {
+        $.ajax({
+          url: "LostKey",
+          type: "post",
+          success: function (data) {
+            let isSuccess = (JSON.parse(data)).isSuccess;
+            if (isSuccess) {
+            $(button).closest("tr").find("td")[5].innerHTML=`<span class="badge iq-bg-danger">Đã hết hạn</span>`;
+              $(button).remove();
+              Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: 'Vô hiệu hóa thành công!',
+              })
+            }else{
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Hiện tại không có chữ ký nào còn hoạt động để vô hiệu hóa",
+              });
+            }
+          },
+          error: function (xhr) {
 
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: xhr.responseText,
+            });
+
+          }
+        });
       }
     })
 
   }
+  function createKey(){
+    Swal.fire({
+      title: 'Xác nhận?',
+      text: "Bạn muốn nhận chữ kí mới và chắc chắn vô hiệu hóa chữ kí hiện tại ?!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Xác nhận!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "CreateKey",
+          type: "post",
+          success: function (data) {
+               let key = JSON.parse((JSON.parse(data)).key);
+               console.log(key)
+                console.log(key.key)
+                 let status = key.status;
+                 let statusString = key.status==1?`<span class="badge iq-bg-success">`:`<span class="badge iq-bg-danger">`;
+                 let bt = key.status==1?`<button class="btn btn-danger" type="button" onclick="lostKey(this)">
+                      <fmt:message>button.lost</fmt:message>
+                    </button>`:"";
+                 let appendInsert=`<tr style="background-color:rgba(0,0,0,.05)"> <td></td>`
+                         +`<td>`+key.id+`</td>
+            <td style="
+    max-width: 200px;
+    word-break: break-all;">`+key.key+`</td>
+            <td>`+key.dayReceive+`</td>
+            <td></td>
+            <td></td>
+            <td>
+              <div id="renderIsActive`+key.id+`">`+statusString+
+                         key.statusDescription+`</span>
+            </div>
+            </td>
+            <td>
+             `+bt+`
+            </td>
+          </tr>`;
+                 let firstRow = $($("#key-list-table").find("tr")[1]);
+                 let btLost = $($(firstRow).find("td")[7]).find("button")[0];
+                 if(btLost!=null){
+                 $(btLost).remove();
+                 }
+                 $($(firstRow).find("td")[5]).innerHTML =`<span class="badge iq-bg-danger">Đã hết hạn</span>`;
+                 $("#key-list-table").prepend(appendInsert);
+                 Swal.fire({
+                   icon: 'success',
+                   title: 'Thành công',
+                   text: 'Tạo chữ ký thành công, private key đã được gửi qua email của bạn!',
+                 })
+          },
+          error: function (xhr) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: xhr.responseText,
+            });
+          }
+        });
+      }
+    })
+  }
 </script>
 </body>
-
 </html>

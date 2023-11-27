@@ -29,7 +29,7 @@ public class AddPublicKey extends HttpServlet {
         String addDayExpired = request.getParameter("addDayExpired");
         Account user = (Account) request.getSession().getAttribute("user");
         try {
-            Key insertedKey = DAOKey.addKey(String.valueOf(user.getId()), user.getUserName(), addPublicKey,addDayExpired);
+            Key insertedKey = DAOKey.importKey(user.getId(), user.getUserName(), addPublicKey,addDayExpired);
                if(insertedKey!=null){
                    Gson gson = new GsonBuilder()
                            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())

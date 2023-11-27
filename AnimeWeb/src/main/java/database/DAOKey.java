@@ -23,7 +23,24 @@ public class DAOKey {
             return  handle.createQuery(query).bind("idAccount",idAccount).mapToBean(Key.class).stream().toList();
         });
     }
-    public static Key addKey(String idAccount,String userName,String publicKey,String dayExpired) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static Key addKey(int idAccount,String userName,String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        DSA.verifyPublicKey(publicKey);
+        boolean isEnable;
+        Jdbi me = JDBiConnector.me();
+        String query;
+        isEnable = DAOKey.isExistPublicKey(publicKey);
+        if(isEnable){
+            disableAllOldKey(idAccount);
+            query = "INSERT INTO `user_keys` (`idAccount`, `userName`, `key`, `dayExpired`) VALUES (:idAccount,:userName,:key,DATE_ADD(NOW(), INTERVAL 70 DAY))";
+            String insertedKey = me.withHandle(handle -> handle.createUpdate(query).bind("idAccount",idAccount).bind("userName",userName).bind("key",publicKey)
+                    .executeAndReturnGeneratedKeys("id").mapTo(String.class).one());
+            return findKeyById(insertedKey);
+        }else{
+            return null;
+        }
+
+    }
+    public static Key importKey(int idAccount,String userName,String publicKey,String dayExpired) throws NoSuchAlgorithmException, InvalidKeySpecException {
         DSA.verifyPublicKey(publicKey);
         boolean isEnable;
         Jdbi me = JDBiConnector.me();
@@ -55,10 +72,10 @@ public class DAOKey {
         return me.withHandle(handle -> handle.createQuery(query).bind("publicKey",publicKey).mapTo(Integer.class).first()==0);
     }
 
-    public static void disableAllOldKey(String idAccount){
+    public static boolean disableAllOldKey(int idAccount){
         Jdbi me = JDBiConnector.me();
         String query="UPDATE `user_keys` SET `status` =0 WHERE (`idAccount` = :idAccount);";
-        me.withHandle(handle -> handle.createUpdate(query).bind("idAccount",idAccount).execute());
+        return me.withHandle(handle -> handle.createUpdate(query).bind("idAccount",idAccount).execute()>0);
     }
 
 }
