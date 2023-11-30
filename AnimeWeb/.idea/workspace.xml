@@ -13,12 +13,17 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/AddPublicKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/AddPublicKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/forgotPassword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/forgotPassword.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/controller/LostKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/controller/LostKey.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/database/DAOKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/database/DAOKey.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/security/DSA.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/security/DSA.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/controller/LostKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/controller/LostKey.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/database/DAOKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/database/DAOKey.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/security/DSA.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/security/DSA.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/anime-main/keyDetail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/anime-main/keyDetail.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/LostKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/LostKey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/DAOKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DAOKey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/security/DSA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/security/DSA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin/KeyManagement.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin/KeyManagement.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/anime-main/keyDetail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/anime-main/keyDetail.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -291,10 +296,26 @@
       <workItem from="1701016966465" duration="929000" />
       <workItem from="1701022303102" duration="12801000" />
       <workItem from="1701061441038" duration="3494000" />
+      <workItem from="1701065473618" duration="716000" />
+      <workItem from="1701066218401" duration="75000" />
+      <workItem from="1701066884680" duration="468000" />
+      <workItem from="1701068226544" duration="2790000" />
+      <workItem from="1701318679882" duration="158000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

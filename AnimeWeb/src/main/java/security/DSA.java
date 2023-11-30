@@ -16,18 +16,18 @@ public class DSA {
 
     }
 
-    public byte[] signMessage(String message, PrivateKey privateKey) throws Exception {
+    public byte[] signMessage(String data, PrivateKey privateKey) throws Exception {
         Signature signature = Signature.getInstance("SHA1withDSA");
         signature.initSign(privateKey);
-        signature.update(message.getBytes());
+        signature.update(data.getBytes());
         byte[] signatureBytes = signature.sign();
         return signatureBytes;
     }
 
-    public boolean verifyMessage(String message, PublicKey publicKey, byte[] signatureBytes) throws Exception {
+    public boolean verifyMessage(String data, PublicKey publicKey, byte[] signatureBytes) throws Exception {
         Signature signature = Signature.getInstance("SHA1withDSA");
         signature.initVerify(publicKey);
-        signature.update(message.getBytes());
+        signature.update(data.getBytes());
         boolean verified = signature.verify(signatureBytes);
         return verified;
     }
@@ -37,9 +37,6 @@ public class DSA {
     }
     public String privateKeyToBase64() {
         return Base64.getEncoder().encodeToString(privateKey.getEncoded());
-    }
-    public byte[] fromBase64(String base64) {
-        return Base64.getDecoder().decode(base64);
     }
 //    public static Certificate getCertificate() throws Exception {
 //        CertificateFactory cf = CertificateFactory.getInstance("X.509");
@@ -65,10 +62,6 @@ public static boolean verifyPublicKey(String keyInput) throws NoSuchAlgorithmExc
        return true;
 
 }
-
-
-
-
     public PublicKey getPublicKey() {
         return publicKey;
     }

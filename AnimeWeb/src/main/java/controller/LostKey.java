@@ -14,7 +14,7 @@ public class LostKey extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Account user = (Account) request.getSession().getAttribute("user");
-        boolean isSuccess = DAOKey.disableAllOldKey(user.getId());
+        boolean isSuccess = DAOKey.disableAllOldKey(user.getId(),null);
         JsonObject object = new JsonObject();
         object.addProperty("isSuccess",isSuccess);
         response.getWriter().println(object);

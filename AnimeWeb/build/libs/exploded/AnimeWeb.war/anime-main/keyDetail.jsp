@@ -356,7 +356,7 @@
           success: function (data) {
             let isSuccess = (JSON.parse(data)).isSuccess;
             if (isSuccess) {
-            $(button).closest("tr").find("td")[5].innerHTML=`<span class="badge iq-bg-danger">"Đã hết hạn"</span>`;
+            $(button).closest("tr").find("td")[5].innerHTML=`<span class="badge iq-bg-danger">Đã hết hạn</span>`;
               $(button).remove();
               Swal.fire({
                 icon: 'success',
@@ -414,8 +414,8 @@
     max-width: 200px;
     word-break: break-all;">`+key.key+`</td>
             <td>`+key.dayReceive+`</td>
-            <td>`+key.dayExpired+`</td>
-            <td>`+key.dayCanceled+`</td>
+            <td></td>
+            <td></td>
             <td>
               <div id="renderIsActive`+key.id+`">`+statusString+
                          key.statusDescription+`</span>
@@ -430,7 +430,7 @@
                  if(btLost!=null){
                  $(btLost).remove();
                  }
-                 $($(firstRow).find("td")[5]).innerHTML =`<span class="badge iq-bg-danger">"Đã hết hạn"</span>`;
+                 $($(firstRow).find("td")[5]).innerHTML =`<span class="badge iq-bg-danger">Đã hết hạn</span>`;
                  $("#key-list-table").prepend(appendInsert);
                  Swal.fire({
                    icon: 'success',
