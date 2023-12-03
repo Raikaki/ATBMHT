@@ -1,31 +1,68 @@
 package model;
 
 
+import database.DAOMovie;
+
 import java.util.List;
 
 public class Bill_detail {
+    private int idBill;
+    private Movie movie;
+    private double price;
+    private int status;
+    private int idMovie;
 
-    private List<Movie> movie_list;
-    private double totalPrice;
-
-    public Bill_detail(List<Movie> movie_list, double totalPrice) {
-        this.movie_list = movie_list;
-        this.totalPrice = totalPrice;
+    public Bill_detail() {
     }
 
-    public List<Movie> getMovie_list() {
-        return movie_list;
+    public int getIdBill() {
+        return idBill;
     }
 
-    public void setMovie_list(List<Movie> movie_list) {
-        this.movie_list = movie_list;
+    public void setIdBill(int idBill) {
+        this.idBill = idBill;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    public int getIdMovie() {
+        return idMovie;
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setIdMovie(int idMovie) {
+        this.idMovie = idMovie;
+        this.movie = DAOMovie.getMoviebyId(idMovie);
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Bill_detail{" +
+                "idBill=" + idBill +
+                ", movie=" + movie +
+                ", price=" + price +
+                ", status=" + status +
+                '}';
     }
 }

@@ -1,21 +1,55 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Bill {
+    private int id;
     private int idAccount;
     private int bill_num;
     private LocalDateTime creatAt;
     private String hash;
-    private Bill_detail billDetail ;
+    private List<Bill_detail> billDetail ;
+    private double totalPrice;
+    private int isPurchased;
+    private int isDelete;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIsPurchased() {
+        return isPurchased;
+    }
+
+    public void setIsPurchased(int isPurchased) {
+        this.isPurchased = isPurchased;
+    }
+
+    public int getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
+    }
 
     @Override
     public String toString() {
         return "Bill{" +
-                "idAccount=" + idAccount +
+                "id=" + id +
+                ", idAccount=" + idAccount +
                 ", bill_num=" + bill_num +
                 ", creatAt=" + creatAt +
                 ", hash='" + hash + '\'' +
+                ", billDetail=" + billDetail +
+                ", totalPrice=" + totalPrice +
+                ", isPurchased=" + isPurchased +
+                ", isDelete=" + isDelete +
                 '}';
     }
 
@@ -26,15 +60,23 @@ public class Bill {
         this.hash = hash;
     }
 
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     public int getIdAccount() {
         return idAccount;
     }
 
-    public Bill_detail getBillDetail() {
+    public List<Bill_detail> getBillDetail() {
         return billDetail;
     }
 
-    public void setBillDetail(Bill_detail billDetail) {
+    public void setBillDetail(List<Bill_detail> billDetail) {
         this.billDetail = billDetail;
     }
 

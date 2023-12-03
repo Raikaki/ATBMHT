@@ -13,17 +13,31 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/controller/LostKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/controller/LostKey.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/database/DAOBills.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/database/DAOBills.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/database/DAOKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/database/DAOKey.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/security/DSA.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/security/DSA.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/controller/LostKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/controller/LostKey.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/database/DAOMovie.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/database/DAOMovie.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/model/Bill.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/model/Bill.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/wishListController/Checkout.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/wishListController/Checkout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/wishListController/updateSelectedMovies.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/wishListController/updateSelectedMovies.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/database/DAOBills.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/database/DAOBills.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/database/DAOKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/database/DAOKey.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/security/DSA.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/security/DSA.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/anime-main/keyDetail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/anime-main/keyDetail.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/database/DAOMovie.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/database/DAOMovie.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/model/Bill.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/model/Bill.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/wishListController/Checkout.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/wishListController/Checkout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/wishListController/updateSelectedMovies.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/wishListController/updateSelectedMovies.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/anime-main/bill.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/anime-main/bill.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/anime-main/checkout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/anime-main/checkout.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/LostKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/LostKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/DAOKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DAOKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/DAOBills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DAOBills.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/DAOMovie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DAOMovie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Bill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Bill_detail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Bill_detail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/security/DSA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/security/DSA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/wishListController/Checkout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wishListController/Checkout.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/wishListController/CheckoutIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wishListController/CheckoutIndex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/wishListController/updateSelectedMovies.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wishListController/updateSelectedMovies.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/anime-main/bill.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/anime-main/bill.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/anime-main/checkout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/anime-main/checkout.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -301,11 +315,24 @@
       <workItem from="1701066884680" duration="468000" />
       <workItem from="1701068226544" duration="2790000" />
       <workItem from="1701318679882" duration="158000" />
+      <workItem from="1701506131053" duration="2293000" />
+      <workItem from="1701586097898" duration="6729000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

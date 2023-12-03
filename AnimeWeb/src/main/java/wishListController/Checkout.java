@@ -3,6 +3,7 @@ package wishListController;
 import Log.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import database.DAOBills;
 import database.DAOMovie;
 
 import database.JDBiConnector;
@@ -56,39 +57,39 @@ public class Checkout extends HttpServlet {
 
         if (action.equals("checkout")) {
 
-//            if ((user.getBalance() - order.getTotalPrice()) >= 0) {
-//                for (Movie m : order.getSelectedMovies()) {
-//                    daoMovie.insertPurchasedMovie(user.getId(), m.getId(), m.getCalPrice());
-//                    wishlist.remove(String.valueOf(m.getId()));
-//                    session.setAttribute("wishlist", wishlist);
-//                    session.removeAttribute("order");
-//                }
-//                log.setUserId(user.getId());
-//                log.setContent("Thanh toán hàng hóa thành công");
-//                log.setLevel(Log.ALERT);
-//                new JDBiConnector().insert(log);
-//                user.setBalance((user.getBalance() - order.getTotalPrice()));
-//                DecimalFormat decimalFormat = new DecimalFormat("#,##0");
-//                user.setMoviesPurchased(order.getSelectedMovies());
-//
-////                daoRecharge.updateBalance(user.getId(), user.getBalance());
-////                String balanceFluctuations = user.getBalanceFluctuations(order.getTotalPrice());
-////                daoRecharge.insertBalanceFluctuations(user.getId(), balanceFluctuations, "  mua phim.", 0);
-//                session.setAttribute("success", true);
-//                session.removeAttribute("done");
-//                response.sendRedirect(getServletContext().getContextPath() + "/anime-main/CheckoutIndex");
-//                return;
-//            } else {
-//                session.setAttribute("success", false);
-//                session.removeAttribute("done");
-//                log.setUserId(user.getId());
-//                log.setContent("Thanh toán hàng hóa thất bại");
-//                log.setLevel(Log.WARNING);
-//                new JDBiConnector().insert(log);
-//                response.sendRedirect(getServletContext().getContextPath() + "/anime-main/CheckoutIndex");
-//
-//                return;
-//            }
+            if ((user.getBalance() - order.getTotalPrice()) >= 0) {
+                for (Movie m : order.getSelectedMovies()) {
+                    daoMovie.insertPurchasedMovie(user.getId(), m.getId(), m.getCalPrice());
+                    wishlist.remove(String.valueOf(m.getId()));
+                    session.setAttribute("wishlist", wishlist);
+                    session.removeAttribute("order");
+                }
+                log.setUserId(user.getId());
+                log.setContent("Thanh toán hàng hóa thành công");
+                log.setLevel(Log.ALERT);
+                new JDBiConnector().insert(log);
+                user.setBalance((user.getBalance() - order.getTotalPrice()));
+                DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+                user.setMoviesPurchased(order.getSelectedMovies());
+
+//                daoRecharge.updateBalance(user.getId(), user.getBalance());
+//                String balanceFluctuations = user.getBalanceFluctuations(order.getTotalPrice());
+//                daoRecharge.insertBalanceFluctuations(user.getId(), balanceFluctuations, "  mua phim.", 0);
+                session.setAttribute("success", true);
+                session.removeAttribute("done");
+                response.sendRedirect(getServletContext().getContextPath() + "/anime-main/CheckoutIndex");
+                return;
+            } else {
+                session.setAttribute("success", false);
+                session.removeAttribute("done");
+                log.setUserId(user.getId());
+                log.setContent("Thanh toán hàng hóa thất bại");
+                log.setLevel(Log.WARNING);
+                new JDBiConnector().insert(log);
+                response.sendRedirect(getServletContext().getContextPath() + "/anime-main/CheckoutIndex");
+
+                return;
+            }
 
         }
 

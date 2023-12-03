@@ -60,7 +60,7 @@
 
                         </div>
                         <div class="row">
-                            <c:forEach var="movie" items="${user.moviesPurchased}">
+                            <c:forEach var="bill" items="${user.bills}">
                                 <form class="col-lg-3 col-md-6">
                                     <div class="product__item">
                                         <c:url var="urlAvatarMovie"
@@ -86,7 +86,7 @@
                                         </div>
                                         <div class="time-purchased" style="display: none;">
                                             <h5>Thời gian mua :</h5>
-                                            <h5>${movie.changeFormat()}</h5>
+                                            <h5>${bill.creatAt}</h5>
                                             <h5> Giá đã mua ${movie.purchasePrice}đ</h5>
                                         </div>
                                     </div>

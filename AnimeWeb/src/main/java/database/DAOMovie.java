@@ -324,6 +324,7 @@ public class DAOMovie {
         result.setGenres(getListGenre(result.getId()));
         result.setPercent(getPercentBonus(result.getId()));
         result.setAvgRate(DAORate.getAVGRate(result.getId()));
+        result.setListProducer(getProducers(idMovie));
         return result;
     }
 
