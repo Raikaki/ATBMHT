@@ -1,18 +1,52 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Bill {
     private int id;
+    private String fullName;
     private int idAccount;
     private int bill_num;
-    private LocalDateTime creatAt;
+    private LocalDateTime createAt;
     private String hash;
-    private List<Bill_detail> billDetail ;
+    private List<Bill_detail> billDetail;
     private double totalPrice;
     private int isPurchased;
     private int isDelete;
+    private String publicKey;
+
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public Bill() {
+
+    }
+
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "idAccount=" + idAccount +
+                ", bill_num=" + bill_num +
+                ", billDetail=" + billDetail +
+                ", totalPrice=" + totalPrice +
+                ", publicKey='" + publicKey + '\'' +
+                '}';
+    }
 
     public int getId() {
         return id;
@@ -38,25 +72,24 @@ public class Bill {
         this.isDelete = isDelete;
     }
 
-    @Override
-    public String toString() {
-        return "Bill{" +
-                "id=" + id +
-                ", idAccount=" + idAccount +
-                ", bill_num=" + bill_num +
-                ", creatAt=" + creatAt +
-                ", hash='" + hash + '\'' +
-                ", billDetail=" + billDetail +
-                ", totalPrice=" + totalPrice +
-                ", isPurchased=" + isPurchased +
-                ", isDelete=" + isDelete +
-                '}';
+
+    public LocalDateTime getCreateAt() {
+        return createAt;
     }
 
-    public Bill(int idAccount, int bill_num, LocalDateTime creatAt, String hash) {
+    public String getFormattedCreateAt() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return createAt.format(formatter);
+    }
+
+    public void setCreateAt(LocalDateTime createAt) {
+        this.createAt = createAt;
+    }
+
+    public Bill(int idAccount, int bill_num, LocalDateTime createAt, String hash) {
         this.idAccount = idAccount;
         this.bill_num = bill_num;
-        this.creatAt = creatAt;
+        this.createAt = createAt;
         this.hash = hash;
     }
 
@@ -92,13 +125,6 @@ public class Bill {
         this.bill_num = bill_num;
     }
 
-    public LocalDateTime getCreatAt() {
-        return creatAt;
-    }
-
-    public void setCreatAt(LocalDateTime creatAt) {
-        this.creatAt = creatAt;
-    }
 
     public String getHash() {
         return hash;

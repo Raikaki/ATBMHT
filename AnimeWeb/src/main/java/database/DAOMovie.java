@@ -654,12 +654,13 @@ public class DAOMovie {
     }
 
 
-    public void insertPurchasedMovie(int idUser, int idMovie, double price) {
-        String query = "INSERT INTO movies_purchased (idAccount, idMovie, purchasePrice) VALUES (:idUser, :idMovie, :priceVar)";
+    public void insertPurchasedMovie(int idUser, int idMovie, double price,int idBill) {
+        String query = "INSERT INTO movies_purchased (idAccount,idBill, idMovie, purchasePrice) VALUES (:idUser,:idBill, :idMovie, :priceVar)";
         Jdbi me = JDBiConnector.me();
         me.withHandle(handle -> {
             return handle.createUpdate(query)
                     .bind("idUser", idUser)
+                    .bind("idBill",idBill)
                     .bind("idMovie", idMovie)
                     .bind("priceVar", price)
                     .execute();

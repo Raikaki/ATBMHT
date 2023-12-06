@@ -2,6 +2,7 @@ package security;
 
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 public class DSA {
@@ -17,7 +18,7 @@ public class DSA {
     }
 
     public static byte[] signBill(String data, PrivateKey privateKey) throws Exception {
-        Signature signature = Signature.getInstance("SHA1withDSA");
+        Signature signature = Signature.getInstance("SHA256withDSA");
         signature.initSign(privateKey);
         signature.update(data.getBytes());
         byte[] signatureBytes = signature.sign();
@@ -25,20 +26,20 @@ public class DSA {
     }
 
     public static boolean verifyBill(String data, PublicKey publicKey, String signatureData) throws Exception {
-        Signature signature = Signature.getInstance("SHA1withDSA");
+        Signature signature = Signature.getInstance("SHA256withDSA");
         signature.initVerify(publicKey);
         signature.update(data.getBytes());
         byte[] signatureBytes = Base64.getDecoder().decode(signatureData);
         return signature.verify(signatureBytes);
     }
 
-    public String publicKeyToBase64() {
+    public  String publicKeyToBase64() {
         return Base64.getEncoder().encodeToString(publicKey.getEncoded());
     }
     public String privateKeyToBase64() {
         return Base64.getEncoder().encodeToString(privateKey.getEncoded());
     }
-public static PublicKey verifyPublicKey(String keyInput) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static PublicKey verifyPublicKey(String keyInput) throws NoSuchAlgorithmException, InvalidKeySpecException {
     if (keyInput.trim().equals(""))
         return null;
        byte[] publicKeyBytes = Base64.getDecoder().decode(keyInput);
@@ -48,15 +49,19 @@ public static PublicKey verifyPublicKey(String keyInput) throws NoSuchAlgorithmE
        return keyFactory.generatePublic(keySpec);
 
 }
-    public static PrivateKey verifyPrivateKey(String keyInput) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static PrivateKey verifyPrivateKey(String keyInput) {
         if (keyInput.trim().equals(""))
             return null;
-        byte[] publicKeyBytes = Base64.getDecoder().decode(keyInput);
-        KeyFactory keyFactory = KeyFactory.getInstance("DSA");
-        X509EncodedKeySpec keySpec = new X509EncodedKeySpec(publicKeyBytes);
-        return keyFactory.generatePrivate(keySpec);
 
-
+        try {
+            byte[] privateKeyBytes = Base64.getDecoder().decode(keyInput);
+            KeyFactory keyFactory = KeyFactory.getInstance("DSA");
+            PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
+            return keyFactory.generatePrivate(keySpec);
+        } catch (Exception e) {
+            e.printStackTrace(); // Log or handle the exception appropriately
+            return null;
+        }
     }
     public PublicKey getPublicKey() {
         return publicKey;

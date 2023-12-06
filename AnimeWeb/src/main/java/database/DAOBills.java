@@ -10,18 +10,18 @@ import security.DSA;
 import java.util.List;
 
 public class DAOBills {
-    public static int createBill(int idAccount, int billNum, double totalPrice, List<Movie> billMovies){
+    public static int createBill(int idAccount, int billNum, double totalPrice, List<Movie> billMovies, String publicKey) {
         Jdbi me = JDBiConnector.me();
         final int[] idBill = {-1};
         me.useHandle(handle -> {
             handle.begin();
             try {
                 String query;
-                query="INSERT INTO `bills`(`idAccount`,`bill_num`,`totalPrice`) VALUES (:idAccount,:bill_num,:totalPrice);";
-                idBill[0]= handle.createUpdate(query).bind("idAccount",idAccount).bind("bill_num",billNum).bind("totalPrice",totalPrice).executeAndReturnGeneratedKeys("id").mapTo(Integer.class).one();
-                query ="INSERT INTO `bills_detail` (`idMovie`, `idBill`, `price`) VALUES (:idMovie, :idBill,:price);";
-                for(Movie mv : billMovies){
-                    handle.createUpdate(query).bind("idMovie",mv.getId()).bind("idBill",idBill[0]).bind("price",mv.getRenderPrice()).execute();
+                query = "INSERT INTO `bills`(`idAccount`,`bill_num`,`totalPrice`,`public_key`) VALUES (:idAccount,:bill_num,:totalPrice,:public_key);";
+                idBill[0] = handle.createUpdate(query).bind("idAccount", idAccount).bind("bill_num", billNum).bind("totalPrice", totalPrice).bind("public_key", publicKey).executeAndReturnGeneratedKeys("id").mapTo(Integer.class).one();
+                query = "INSERT INTO `bills_detail` (`idMovie`, `idBill`, `price`) VALUES (:idMovie, :idBill,:price);";
+                for (Movie mv : billMovies) {
+                    handle.createUpdate(query).bind("idMovie", mv.getId()).bind("idBill", idBill[0]).bind("price", mv.getRenderPrice()).execute();
                 }
                 handle.commit();
             } catch (Exception e) {
@@ -31,33 +31,88 @@ public class DAOBills {
         });
         return idBill[0];
     }
-    public boolean saveSignatureToBill(Bill bill,String privateKey)throws Exception {
+
+    public static Bill getBillById(int id) {
+        Jdbi jdbi = JDBiConnector.me();
+        String query = "SELECT b.id, b.bill_num, b.create_At, b.isPurchased, b.totalPrice,b.hash,b.public_key, a.fullName FROM bills b JOIN accounts a ON b.idAccount = a.id WHERE b.id = :id and isDelete=0 ";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("id", id)
+                        .mapToBean(Bill.class)
+                        .one()
+        );
+    }
+    public static int getAccountIdByBillId(int idBill) {
+        Jdbi jdbi = JDBiConnector.me();
+        String query = "SELECT idAccount FROM bills WHERE id = :id and isDelete=0 ";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("id", idBill)
+                        .mapTo(Integer.class)
+                        .one()
+        );
+    }
+
+
+    public static boolean saveSignatureToBill(Bill bill, String privateKey) throws Exception {
         String signature = DSA.toBase64(DSA.signBill(bill.toString(), DSA.verifyPrivateKey(privateKey)));
         Jdbi me = JDBiConnector.me();
-        String query="UPDATE `bills` SET `hash` = :hash WHERE (`id` = :idBill);";
-        return me.withHandle(handle -> handle.createUpdate(query).bind("idBill",bill.getId()).bind("hash",signature).execute())==1;
+        String query = "UPDATE `bills` SET `hash` = :hash WHERE (`id` = :idBill);";
+        return me.withHandle(handle -> handle.createUpdate(query).bind("idBill", bill.getId()).bind("hash", signature).execute()) == 1;
     }
-    public boolean verifySignatureBill(Bill bill,String publicKey) throws Exception {
-        return DSA.verifyBill(bill.toString(),DSA.verifyPublicKey(publicKey),getBillSignature(bill.getId()));
+
+    public static boolean verifySignatureBill(Bill bill, String publicKey) throws Exception {
+        return DSA.verifyBill(bill.toString(), DSA.verifyPublicKey(publicKey), getBillSignature(bill.getId()));
     }
-    public String getBillSignature(int idBill){
+
+    public static String getBillSignature(int id) {
         Jdbi me = JDBiConnector.me();
-        String query ="select hash from bills where idBill=:idBill";
-        return me.withHandle(handle -> handle.createQuery(query).bind("idBill",idBill).mapTo(String.class).one());
+        String query = "select hash from bills where id=:id";
+        return me.withHandle(handle -> handle.createQuery(query).bind("id", id).mapTo(String.class).one());
     }
-    public static List<Bill> getAccountBills(int idAccount){
+
+    public static List<Bill> getAccountBills(int idAccount) {
         Jdbi me = JDBiConnector.me();
-        String query="select id,bill_num,create_At,isPurchased from bills where isDelete=0";
-        List<Bill> bills = me.withHandle(handle -> handle.createQuery(query).bind("idAccount",idAccount).mapToBean(Bill.class).list());
-        for(Bill bill : bills){
+        String query = "SELECT b.id, b.bill_num, b.create_At, b.isPurchased, b.hash, a.fullName FROM bills b JOIN accounts a ON b.idAccount = a.id WHERE isDelete = 0 AND idAccount = :idAccount";
+
+        List<Bill> bills = me.withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("idAccount", idAccount)
+                        .mapToBean(Bill.class)
+                        .list()
+        );
+        for (Bill bill : bills) {
+
             bill.setBillDetail(getBillDetail(bill.getId()));
         }
+        System.out.println(bills);
         return bills;
     }
-    public static List<Bill_detail> getBillDetail(int idBill){
+
+    public static List<Bill_detail> getBillDetail(int idBill) {
         Jdbi me = JDBiConnector.me();
-        String query="select id,idMovie,idBill,price,status from bills_detail where idBill=:idBill";
-        return me.withHandle(handle -> handle.createQuery(query).bind("idBill",idBill).mapToBean(Bill_detail.class).list());
+        String query = "select id,idMovie,idBill,price,status from bills_detail where idBill=:idBill";
+        return me.withHandle(handle -> handle.createQuery(query).bind("idBill", idBill).mapToBean(Bill_detail.class).list());
+    }
+    public static void updateIsPurchased(int billId) {
+        Jdbi me = JDBiConnector.me();
+        String updateQuery = "UPDATE bills SET isPurchased = 1 WHERE id = :billId";
+
+        me.useHandle(handle -> handle.createUpdate(updateQuery)
+                .bind("billId", billId)
+                .execute());
+    }
+    public static List<Bill_detail> getBillDetailsByBillId(int idBill) {
+        Jdbi jdbi = JDBiConnector.me();
+        String query = "SELECT id, idMovie, idBill, price, status FROM bills_detail WHERE idBill = :idBill";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("idBill", idBill)
+                        .mapToBean(Bill_detail.class)
+                        .list()
+        );
     }
 
 }

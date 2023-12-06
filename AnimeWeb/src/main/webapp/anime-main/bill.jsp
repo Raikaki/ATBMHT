@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+         pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -30,10 +30,10 @@
     <link rel="stylesheet" href="css/nice-select.css" type="text/css">
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="css/ds/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/ds/style.css"/>
     <script src="https://kit.fontawesome.com/9847adceef.js"></script>
 </head>
-<c:url var="movieDetail" value="/anime-main/MovieDetail" />
+<c:url var="movieDetail" value="/anime-main/MovieDetail"/>
 <body>
 
 <!-- Page Preloder -->
@@ -42,7 +42,7 @@
 </div>
 <div id="ah_wrapper">
     <!-- Header Section Begin -->
-    <c:import url="/anime-main/header.jsp" />
+    <c:import url="/anime-main/header.jsp"/>
     <!-- Header End -->
 
     <!-- Product Section Begin -->
@@ -60,38 +60,33 @@
 
                         </div>
                         <div class="row">
-                            <c:forEach var="bill" items="${user.bills}">
-                                <form class="col-lg-3 col-md-6">
-                                    <div class="product__item">
-                                        <c:url var="urlAvatarMovie"
-                                               value="${movie.getFirstAvatar()}" />
-                                        <a href="${movieDetail}?idMovie=${movie.id}">
-                                            <div class="product__item__pic set-bg" data-setbg="${urlAvatarMovie}">
-                                                <div class="ep">${movie.currentEpisode}/${movie.totalEpisode}</div>
-                                            </div>
-                                        </a>
+                            <c:url value="/anime-main/ViewBillDetails" var="Bill"/>
+                            <form class="col-lg-12 col-md-6" action="${Bill}" method="get" id="billDetailsForm">
+                                <div class="table__film_detail">
+                                    <table>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Bill number</th>
+                                            <th>User Name</th>
+                                            <th>Time</th>
+                                            <th></th>
+                                        </tr>
+                                        <c:forEach var="bill" items="${sessionScope.bills}">
+                                            <tr>
+                                                <td>${bill.id}</td>
+                                                <td>${bill.bill_num}</td>
+                                                <td>${bill.fullName}</td>
+                                                <td>${bill.formattedCreateAt}</td>
+                                                <td>
+                                                    <button type="button" onclick="viewBillDetails(${bill.id})">Xem chi tiết</button>
 
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <c:forEach var="genre" items="${movie.genres}">
-                                                <li>${genre.description}</li>
-                                            </c:forEach>
-                                        </ul>
-                                        <div class="movie-p">
-                                            <h5>
-                                                <a href="${movieDetail}?idMovie=${movie.id}">${movie.name}</a>
-                                                <i class="fas fa-bars" style="color: white" onclick="showTimePurchased(event)"></i>
-                                            </h5>
-                                        </div>
-                                        <div class="time-purchased" style="display: none;">
-                                            <h5>Thời gian mua :</h5>
-                                            <h5>${bill.creatAt}</h5>
-                                            <h5> Giá đã mua ${movie.purchasePrice}đ</h5>
-                                        </div>
-                                    </div>
-                                </form>
-                            </c:forEach>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </table>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -101,7 +96,7 @@
     <!-- Product Section End -->
 
     <!-- Footer Section Begin -->
-    <c:import url="/anime-main/footer.jsp" />
+    <c:import url="/anime-main/footer.jsp"/>
 </div>
 <!-- Footer Section End -->
 
@@ -119,6 +114,19 @@
         } else {
             timePurchased.style.display = 'none';
         }
+    }
+</script>
+<script>
+    function viewBillDetails(billId) {
+        // Tạo một input hidden và thêm vào form
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "billId";
+        input.value = billId;
+        document.getElementById("billDetailsForm").appendChild(input);
+
+        // Submit form
+        document.getElementById("billDetailsForm").submit();
     }
 </script>
 

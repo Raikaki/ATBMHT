@@ -3,6 +3,7 @@ package wishListController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import database.DAOBills;
 import database.DAOMovie;
 import model.*;
 
@@ -29,7 +30,7 @@ public class AddWishList extends HttpServlet {
 
             HttpSession session = request.getSession();
             Object langObject = session.getAttribute("LANG");
-            String lang = langObject==null?"en_US":String.valueOf(langObject);
+            String lang = langObject == null ? "en_US" : String.valueOf(langObject);
             Account user = (Account) session.getAttribute("user");
             String action = request.getParameter("action");
             Order order = (Order) session.getAttribute("order");
@@ -74,7 +75,7 @@ public class AddWishList extends HttpServlet {
                 int month = calendar.get(Calendar.MONTH) + 1;
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
                 totalPrice = order.getTotalPrice();
-                ;
+
                 System.out.println(day);
                 List<String> selectedMovies;
                 selectedMovies = order.getSelectedMovieNames();
@@ -82,6 +83,9 @@ public class AddWishList extends HttpServlet {
                 int number = random.nextInt(90000000) + 10000000;
                 String nameCus = user.getFullName();
                 System.out.println(nameCus);
+                List<Movie> movieList = order.getSelectedMovies();
+
+
 
                 session.setAttribute("nameCus", nameCus);
                 session.setAttribute("number", number);
@@ -90,7 +94,7 @@ public class AddWishList extends HttpServlet {
                 session.setAttribute("year", year);
                 session.setAttribute("order", order);
                 session.setAttribute("selectedMovies", selectedMovies);
-                response.sendRedirect(getServletContext().getContextPath()+"/anime-main/checkout");
+                response.sendRedirect(getServletContext().getContextPath() + "/anime-main/checkout");
             }
             if (action.equals("checkoutAll")) {
                 order = new Order();
@@ -110,7 +114,7 @@ public class AddWishList extends HttpServlet {
                     }
                 }
                 totalPrice = order.getTotalPrice();
-                ;
+
                 System.out.println(day);
                 List<String> selectedMovies;
                 selectedMovies = order.getSelectedMovieNames();
@@ -125,13 +129,13 @@ public class AddWishList extends HttpServlet {
                 session.setAttribute("year", year);
                 session.setAttribute("order", order);
                 session.setAttribute("selectedMovies", selectedMovies);
-                response.sendRedirect(getServletContext().getContextPath()+"/anime-main/checkout");
+                response.sendRedirect(getServletContext().getContextPath() + "/anime-main/checkout");
                 return;
             }
             if (action.equals("add")) {
                 int idMovie = Integer.parseInt(request.getParameter("idMovie"));
                 DAOMovie daoMovie = new DAOMovie();
-                Movie movieAdd = DAOMovie.getMovieDetail(idMovie,lang);
+                Movie movieAdd = DAOMovie.getMovieDetail(idMovie, lang);
                 list = wishlist.get(String.valueOf(movieAdd.getId()));
                 if (list == null) {
                     list = new WishListDetail();
@@ -152,7 +156,7 @@ public class AddWishList extends HttpServlet {
                     }
                 }
                 list.addMoive(movieAdd);
-               
+
                 wishlist.put(String.valueOf(movieAdd.getId()), list);
                 System.out.println(wishlist.get(String.valueOf(movieAdd.getId())));
                 session.setAttribute("wishlist", wishlist);
