@@ -12,8 +12,6 @@ import java.io.IOException;
 public class CheckoutIndex extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-
         request.getRequestDispatcher("/anime-main/checkout.jsp").forward(request, response);
     }
 

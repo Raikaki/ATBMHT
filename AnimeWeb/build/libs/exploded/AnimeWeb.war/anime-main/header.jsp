@@ -10,7 +10,7 @@
 <c:url var="urlAvatar" value="${sessionScope.user.avatar}"/>
 <c:url var="listFollow" value="/anime-main/ListFollow"/>
 <%--<c:url var="ManagerAccount" value="/anime-main/ManagerAccount"/>--%>
-
+<c:url var="bill" value="/anime-main/Bill"/>
 <c:url var="movieDetail" value="/anime-main/MovieDetail"/>
 <c:url var="listPurchased" value="/anime-main/ListPurchased"/>
 <c:url var="wishList" value="/anime-main/wishList"/>
@@ -267,7 +267,7 @@
                                             class="fas fa-film"></i></a>
                                 </li>
                                 <li>
-                                    <a href="bill.jsp"><fmt:message>content.bill</fmt:message> </a>
+                                    <a href="${bill}"><fmt:message>content.bill</fmt:message> </a>
                                 </li>
                                 <li>
 
