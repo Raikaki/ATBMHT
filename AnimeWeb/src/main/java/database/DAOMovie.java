@@ -746,6 +746,18 @@ public class DAOMovie {
         });
     }
 
+    public static void updateMoviePurchasedStatus(int idAccount, int idMovie,int idBill) {
+        String updateQuery = "UPDATE movies_purchased SET status = 0 WHERE idAccount = :idAccount AND idMovie = :idMovie AND idBill=:idBill;";
+
+        Jdbi jdbi = JDBiConnector.me();
+
+        jdbi.useHandle(handle -> {
+            handle.createUpdate(updateQuery)
+                    .bind("idAccount", idAccount)
+                    .bind("idMovie", idMovie).bind("idBill",idBill)
+                    .execute();
+        });
+    }
 
     public static String getGenre(String idGenre) {
         String query = "SELECT DISTINCT g.description FROM movie_genres mvg JOIN genres g ON mvg.idGenre = g.id WHERE mvg.idGenre = :idGenre AND g.status = 1";

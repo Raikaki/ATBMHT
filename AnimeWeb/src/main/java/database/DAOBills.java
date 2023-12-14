@@ -53,6 +53,17 @@ public class DAOBills {
                         .one()
         );
     }
+    public static String getCaptureId(int idBill) {
+        Jdbi jdbi = JDBiConnector.me();
+        String query = "SELECT captureId FROM bills WHERE id = :id and isDelete=0 ";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("id", idBill)
+                        .mapTo(String.class)
+                        .one()
+        );
+    }
 
 
     public static boolean saveSignatureToBill(Bill bill, String privateKey) throws Exception {
@@ -60,6 +71,11 @@ public class DAOBills {
         Jdbi me = JDBiConnector.me();
         String query = "UPDATE `bills` SET `hash` = :hash WHERE (`id` = :idBill);";
         return me.withHandle(handle -> handle.createUpdate(query).bind("idBill", bill.getId()).bind("hash", signature).execute()) == 1;
+    }
+    public static Integer saveCaptureId(Bill bill, String captureId)  {
+        Jdbi me = JDBiConnector.me();
+        String query = "UPDATE `bills` SET `captureId` = :captureId WHERE (`id` = :idBill);";
+        return me.withHandle(handle -> handle.createUpdate(query).bind("idBill", bill.getId()).bind("captureId", captureId).execute());
     }
 
     public static boolean verifySignatureBill(Bill bill, String publicKey) throws Exception {

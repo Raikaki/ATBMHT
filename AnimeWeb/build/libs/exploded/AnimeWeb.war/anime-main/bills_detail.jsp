@@ -127,7 +127,11 @@
                                                      </div>
                                                 </c:when>
                                                 <c:otherwise>
+                                                    <input type="hidden" name="captureId" id="captureId" value="${requestScope.captureId}">
                                                     <div style="color: #ff7070">Đơn hàng không được xác thực</div>
+                                                    <button onclick="performRefund()">Perform Refund</button>
+
+                                                    <div id="result"></div>
                                                 </c:otherwise>
                                             </c:choose>
                                             <%--                                            <div><input type="hidden" name="denominations" value="${sessionScope.order.totalPrice}">--%>
@@ -181,7 +185,23 @@
         }
     }
 </script>
+<script>
+    function performRefund() {
+        var captureId = $("#captureId").val();
 
+        $.ajax({
+            type: "POST",
+            url: "/refund", // Tên servlet hoặc đường dẫn tương ứng
+            data: { captureId: captureId },
+            success: function(response) {
+                $("#result").html(response);
+            },
+            error: function(error) {
+                $("#result").html("Error in refund process: " + error.responseText);
+            }
+        });
+    }
+</script>
 </body>
 
 </html>

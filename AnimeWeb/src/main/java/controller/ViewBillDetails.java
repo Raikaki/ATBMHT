@@ -40,8 +40,10 @@ public class ViewBillDetails extends HttpServlet {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+      String captureId =  DAOBills.getCaptureId(bill.getId());
             System.out.println(bill.getTotalPrice());
         System.out.println(verify);
+        request.setAttribute("captureId", captureId);
         request.setAttribute("verify", verify);
         request.setAttribute("bill_movies", movieList);
         request.setAttribute("bill_detail", bill);

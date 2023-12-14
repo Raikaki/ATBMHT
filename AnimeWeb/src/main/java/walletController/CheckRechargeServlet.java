@@ -66,7 +66,8 @@ public class CheckRechargeServlet extends HttpServlet {
                 model.Order order = (model.Order) session.getAttribute("order");
                 HashMap<String, WishListDetail> wishlist = (HashMap<String, WishListDetail>) session.getAttribute("wishlist");
                 DAOMovie daoMovie = new DAOMovie();
-
+                String captureId = capturedOrder.purchaseUnits().get(0).payments().captures().get(0).id();
+                DAOBills.saveCaptureId(bill,captureId);
                 for (Movie m : order.getSelectedMovies()) {
                     daoMovie.insertPurchasedMovie(user.getId(), m.getId(), m.getCalPrice(),bill.getId());
                     wishlist.remove(String.valueOf(m.getId()));

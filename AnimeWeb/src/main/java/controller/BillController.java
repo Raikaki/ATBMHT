@@ -28,8 +28,7 @@ public class BillController extends HttpServlet {
         } else {
 
             List<model.Bill> accountBills = DAOBills.getAccountBills(user.getId());
-            System.out.println(accountBills.size());
-            System.out.println(accountBills.get(1).getCreateAt());
+
 
 
             request.getSession().setAttribute("bills", accountBills);
