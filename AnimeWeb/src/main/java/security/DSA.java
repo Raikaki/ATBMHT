@@ -2,6 +2,7 @@ package security;
 
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 public class DSA {
@@ -16,52 +17,52 @@ public class DSA {
 
     }
 
-    public byte[] signMessage(String data, PrivateKey privateKey) throws Exception {
-        Signature signature = Signature.getInstance("SHA1withDSA");
+    public static byte[] signBill(String data, PrivateKey privateKey) throws Exception {
+        Signature signature = Signature.getInstance("SHA256withDSA");
         signature.initSign(privateKey);
         signature.update(data.getBytes());
         byte[] signatureBytes = signature.sign();
         return signatureBytes;
     }
 
-    public boolean verifyMessage(String data, PublicKey publicKey, byte[] signatureBytes) throws Exception {
-        Signature signature = Signature.getInstance("SHA1withDSA");
+    public static boolean verifyBill(String data, PublicKey publicKey, String signatureData) throws Exception {
+        Signature signature = Signature.getInstance("SHA256withDSA");
         signature.initVerify(publicKey);
         signature.update(data.getBytes());
-        boolean verified = signature.verify(signatureBytes);
-        return verified;
+        byte[] signatureBytes = Base64.getDecoder().decode(signatureData);
+        return signature.verify(signatureBytes);
     }
 
-    public String publicKeyToBase64() {
+    public  String publicKeyToBase64() {
         return Base64.getEncoder().encodeToString(publicKey.getEncoded());
     }
     public String privateKeyToBase64() {
         return Base64.getEncoder().encodeToString(privateKey.getEncoded());
     }
-//    public static Certificate getCertificate() throws Exception {
-//        CertificateFactory cf = CertificateFactory.getInstance("X.509");
-//        Certificate certificate = cf.generateCertificate(new FileInputStream("d:/file/ds/certificate.pem"));
-//        return certificate;
-//    }
-//
-//    public static boolean verifyCertificate(Certificate certificate) throws Exception {
-//
-//        CertificateFactory cf = CertificateFactory.getInstance("X.509");
-//        Certificate caCertificate = cf.generateCertificate(new FileInputStream("d:/file/ds/caCertificate.pem"));
-//        PublicKey caPublicKey = caCertificate.getPublicKey();
-//        certificate.verify(caPublicKey);
-//        return true;
-//    }
-public static boolean verifyPublicKey(String keyInput) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static PublicKey verifyPublicKey(String keyInput) throws NoSuchAlgorithmException, InvalidKeySpecException {
     if (keyInput.trim().equals(""))
-        return false;
+        return null;
        byte[] publicKeyBytes = Base64.getDecoder().decode(keyInput);
        KeyFactory keyFactory = KeyFactory.getInstance("DSA");
        X509EncodedKeySpec keySpec = new X509EncodedKeySpec(publicKeyBytes);
-       keyFactory.generatePublic(keySpec);
-       return true;
+
+       return keyFactory.generatePublic(keySpec);
 
 }
+    public static PrivateKey verifyPrivateKey(String keyInput) {
+        if (keyInput.trim().equals(""))
+            return null;
+
+        try {
+            byte[] privateKeyBytes = Base64.getDecoder().decode(keyInput);
+            KeyFactory keyFactory = KeyFactory.getInstance("DSA");
+            PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
+            return keyFactory.generatePrivate(keySpec);
+        } catch (Exception e) {
+            e.printStackTrace(); // Log or handle the exception appropriately
+            return null;
+        }
+    }
     public PublicKey getPublicKey() {
         return publicKey;
     }
@@ -76,6 +77,9 @@ public static boolean verifyPublicKey(String keyInput) throws NoSuchAlgorithmExc
 
     public void setPrivateKey(PrivateKey privateKey) {
         this.privateKey = privateKey;
+    }
+    public static String toBase64(byte[] bytes){
+        return Base64.getEncoder().encodeToString(bytes);
     }
 
     public static void main(String[] args) throws Exception {

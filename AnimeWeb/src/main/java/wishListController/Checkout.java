@@ -3,6 +3,7 @@ package wishListController;
 import Log.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import database.DAOBills;
 import database.DAOMovie;
 
 import database.JDBiConnector;
@@ -54,8 +55,10 @@ public class Checkout extends HttpServlet {
             response.sendRedirect(getServletContext().getContextPath() + "/anime-main/wishList");
         }
 
-        if (action.equals("checkout")) {
 
+
+//        if (action.equals("checkout")) {
+//
 //            if ((user.getBalance() - order.getTotalPrice()) >= 0) {
 //                for (Movie m : order.getSelectedMovies()) {
 //                    daoMovie.insertPurchasedMovie(user.getId(), m.getId(), m.getCalPrice());
@@ -89,8 +92,8 @@ public class Checkout extends HttpServlet {
 //
 //                return;
 //            }
-
-        }
+//
+//        }
 
     }
 

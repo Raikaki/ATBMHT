@@ -46,7 +46,6 @@ public class updateSelectedMovies extends HttpServlet {
         if (selectedMovies != null && selectedMovies.length > 0) {
             order = (Order) session.getAttribute("order");
             for (String id : selectedMovies) {
-
                 Movie movieAdd = DAOMovie.getMoviebyId(Integer.parseInt(id));
                 for (Movie m : order.getSelectedMovies()) {
                     if (Integer.parseInt(id) == m.getId()) {

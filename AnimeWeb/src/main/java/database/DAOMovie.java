@@ -324,6 +324,7 @@ public class DAOMovie {
         result.setGenres(getListGenre(result.getId()));
         result.setPercent(getPercentBonus(result.getId()));
         result.setAvgRate(DAORate.getAVGRate(result.getId()));
+        result.setListProducer(getProducers(idMovie));
         return result;
     }
 
@@ -653,12 +654,13 @@ public class DAOMovie {
     }
 
 
-    public void insertPurchasedMovie(int idUser, int idMovie, double price) {
-        String query = "INSERT INTO movies_purchased (idAccount, idMovie, purchasePrice) VALUES (:idUser, :idMovie, :priceVar)";
+    public void insertPurchasedMovie(int idUser, int idMovie, double price,int idBill) {
+        String query = "INSERT INTO movies_purchased (idAccount,idBill, idMovie, purchasePrice) VALUES (:idUser,:idBill, :idMovie, :priceVar)";
         Jdbi me = JDBiConnector.me();
         me.withHandle(handle -> {
             return handle.createUpdate(query)
                     .bind("idUser", idUser)
+                    .bind("idBill",idBill)
                     .bind("idMovie", idMovie)
                     .bind("priceVar", price)
                     .execute();
@@ -744,6 +746,18 @@ public class DAOMovie {
         });
     }
 
+    public static void updateMoviePurchasedStatus(int idAccount, int idMovie,int idBill) {
+        String updateQuery = "UPDATE movies_purchased SET status = 0 WHERE idAccount = :idAccount AND idMovie = :idMovie AND idBill=:idBill;";
+
+        Jdbi jdbi = JDBiConnector.me();
+
+        jdbi.useHandle(handle -> {
+            handle.createUpdate(updateQuery)
+                    .bind("idAccount", idAccount)
+                    .bind("idMovie", idMovie).bind("idBill",idBill)
+                    .execute();
+        });
+    }
 
     public static String getGenre(String idGenre) {
         String query = "SELECT DISTINCT g.description FROM movie_genres mvg JOIN genres g ON mvg.idGenre = g.id WHERE mvg.idGenre = :idGenre AND g.status = 1";

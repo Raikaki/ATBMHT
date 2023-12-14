@@ -26,6 +26,23 @@ public class DAOKey {
             return  handle.createQuery(query).bind("idAccount",idAccount).mapToBean(Key.class).stream().toList();
         });
     }
+    public static Key accountKeyNow(int idAccount){
+        String query="SELECT \n" +
+                "    id,\n" +
+                "    `key`,\n" +
+                "    dayReceive,\n" +
+                "    dayExpired,\n" +
+                "    dayCanceled,\n" +
+                "    CASE WHEN NOW() BETWEEN dayReceive AND dayExpired THEN 1 ELSE 0 END AS isBetween\n" +
+                "FROM user_keys\n" +
+                "WHERE idAccount = :idAccount\n" +
+                "ORDER BY dayReceive DESC\n" +
+                "LIMIT 1";
+        Jdbi me = JDBiConnector.me();
+        return me.withHandle(handle -> {
+            return  handle.createQuery(query).bind("idAccount",idAccount).mapToBean(Key.class).one();
+        });
+    }
     public static Key addKey(int idAccount,String userName,String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
         DSA.verifyPublicKey(publicKey);
         boolean isEnable;
