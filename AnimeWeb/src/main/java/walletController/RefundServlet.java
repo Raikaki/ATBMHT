@@ -7,6 +7,7 @@ import database.DAOMovie;
 import model.Account;
 import model.Movie;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +18,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
 
-@WebServlet("/refund")
+@WebServlet("/anime-main/refund")
 public class RefundServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -30,10 +31,11 @@ public class RefundServlet extends HttpServlet {
         String id = request.getParameter("billId");
         APIContext apiContext = new APIContext(clientId, clientSecret, mode);
         Account user = (Account) session.getAttribute("user");
-        List<Movie> movieList = (List<Movie>) request.getAttribute("bill_movies");
-        // Lấy captureId từ request
+        List<Movie> movieList = (List<Movie>) session.getAttribute("bill_movies");
+        System.out.println(movieList);
         String captureId = request.getParameter("captureId");
         String refundValue = request.getParameter("refundValue");
+        System.out.println(refundValue);
         try {
             // Lấy thông tin capture từ PayPal
             Capture capture = Capture.get(apiContext, captureId);
@@ -45,7 +47,7 @@ public class RefundServlet extends HttpServlet {
             // Tạo đối tượng Refund
             RefundRequest refundRequest = new RefundRequest();
             Amount amount = new Amount();
-            amount.setCurrency("USD").setTotal(refundValue);  // Số tiền bạn muốn hoàn tiền
+            amount.setCurrency("USD").setTotal(capture.getAmount().getTotal());  // Số tiền bạn muốn hoàn tiền
             refundRequest.setAmount(amount);
 
             // Thực hiện hoàn tiền
@@ -54,6 +56,7 @@ public class RefundServlet extends HttpServlet {
             // Xử lý kết quả hoàn tiền
             if (refund.getState().equals("completed")) {
                 response.getWriter().println("Refund successful");
+                session.removeAttribute("bill_movies");
             } else {
                 response.getWriter().println("Refund failed");
             }
@@ -63,5 +66,10 @@ public class RefundServlet extends HttpServlet {
             e.printStackTrace(new PrintWriter(sw));
             response.getWriter().println("Error in refund process: " + sw.toString());
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp);
     }
 }
