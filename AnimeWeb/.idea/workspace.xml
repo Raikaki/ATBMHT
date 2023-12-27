@@ -5,28 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51a3cd3e-5d6f-4b6b-a970-38c8546f428b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/controller/ViewBillDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/controller/ViewBillDetails.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/database/DAOBills.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/database/DAOBills.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/database/DAOMovie.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/database/DAOMovie.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/walletController/RefundServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/walletController/RefundServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/controller/ViewBillDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/controller/ViewBillDetails.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/database/DAOBills.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/database/DAOBills.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/database/DAOMovie.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/database/DAOMovie.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/walletController/RefundServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/walletController/RefundServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/anime-main/bills_detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/anime-main/bills_detail.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/ViewBillDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ViewBillDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/DAOBills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DAOBills.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/walletController/RefundServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/walletController/RefundServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/anime-main/bills_detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/anime-main/bills_detail.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +80,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/WareHouse/warehouse&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/ATBMHT2/AnimeWeb&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -334,6 +313,8 @@
       <workItem from="1702530005103" duration="6911000" />
       <workItem from="1702554557042" duration="615000" />
       <workItem from="1702568318133" duration="1213000" />
+      <workItem from="1702744709351" duration="37000" />
+      <workItem from="1702890703005" duration="82000" />
     </task>
     <servers />
   </component>
