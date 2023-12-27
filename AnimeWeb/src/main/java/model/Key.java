@@ -1,5 +1,9 @@
 package model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import database.DAOKey;
+
 import java.time.LocalDateTime;
 
 public class Key {
@@ -12,6 +16,7 @@ public class Key {
     private LocalDateTime dayCanceled;
     private int status;
     private String statusDescription;
+
     public Key() {
     }
 
@@ -44,6 +49,7 @@ public class Key {
     }
 
     public void setDayReceive(LocalDateTime dayReceive) {
+//        dayReceiveString =  formatLocalDateTime(dayReceive,formatter);
         this.dayReceive = dayReceive;
     }
 
@@ -52,6 +58,7 @@ public class Key {
     }
 
     public void setDayExpired(LocalDateTime dayExpired) {
+//        dayExpiredString =  formatLocalDateTime(dayExpired,formatter);
         this.dayExpired = dayExpired;
     }
 
@@ -60,8 +67,11 @@ public class Key {
     }
 
     public void setDayCanceled(LocalDateTime dayCanceled) {
+//        dayCanceledString =  dayCanceled!=null?formatLocalDateTime(dayCanceled,formatter):"";
         this.dayCanceled = dayCanceled;
     }
+
+
 
     public int getStatus() {
         return status;
@@ -105,5 +115,11 @@ public class Key {
                 ", status=" + status +
                 ", statusDescription='" + statusDescription + '\'' +
                 '}';
+    }
+
+    public static void main(String[] args) {
+        Key key = DAOKey.accountKeyNow(1);
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class,new LocalDateTimeAdapter()).create();
+       System.out.println(gson.toJson(key));
     }
 }

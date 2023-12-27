@@ -120,16 +120,18 @@
                                     <div class="price_total">
                                         <div>
                                             Total Price: ${requestScope.bill_detail.totalPrice} VND
-
+                                            <input type="hidden" name="refundValue" id="refundValue"
+                                                   value="${requestScope.bill_detail.totalPrice}">
                                             <c:choose>
                                                 <c:when test="${verify==true}">
                                                     <div style="color:  #02ff02">Đơn hàng đã được xác thực
-                                                     </div>
+                                                    </div>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <input type="hidden" name="captureId" id="captureId" value="${requestScope.captureId}">
+                                                    <input type="hidden" name="captureId" id="captureId"
+                                                           value="${requestScope.captureId}">
                                                     <div style="color: #ff7070">Đơn hàng không được xác thực</div>
-                                                    <button onclick="performRefund()">Perform Refund</button>
+                                                    <button id="refundButton" onclick="performRefund()">Perform Refund</button>
 
                                                     <div id="result"></div>
                                                 </c:otherwise>
@@ -186,17 +188,45 @@
     }
 </script>
 <script>
-    function performRefund() {
-        var captureId = $("#captureId").val();
+    async function convertCurrency() {
 
+        var refundValue = $("#refundValue").val();
+
+        const url = `https://api.apilayer.com/exchangerates_data/convert?to=USD&from=VND&amount=` + refundValue;
+        try {
+            const response = await fetch(url, {
+                headers: {
+                    "apikey": "CaL5Dsgtc1FeF8gQFWJMxOrPtvc0euON"
+                }
+            });
+            const data = await response.json();
+            const convertedAmount = data.result.toFixed(2);
+            console.log(convertedAmount);
+            console.log(data);
+            currency = convertedAmount;
+            return convertedAmount;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+    async function performRefund() {
+        var captureId = $("#captureId").val();
+        const refundValue = await convertCurrency();
         $.ajax({
             type: "POST",
             url: "/refund", // Tên servlet hoặc đường dẫn tương ứng
-            data: { captureId: captureId },
-            success: function(response) {
-                $("#result").html(response);
+            data: {
+                captureId: captureId,
+                refundValue: refundValue
+
             },
-            error: function(error) {
+
+            success: function (response) {
+                $("#result").html(response);
+                $("#refundButton").hide();
+            },
+            error: function (error) {
                 $("#result").html("Error in refund process: " + error.responseText);
             }
         });

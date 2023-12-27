@@ -36,6 +36,14 @@
   <script src="https://kit.fontawesome.com/9847adceef.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+  <style>
+    #key-list-table tbody tr td:nth-child(3){
+      white-space:nowrap;
+      text-overflow : ellipsis;
+      overflow : hidden;
+
+    }
+  </style>
 </head>
 
 <body>
@@ -55,6 +63,7 @@
 
   <!-- Header Section Begin -->
   <c:import url="/anime-main/header.jsp"/>
+
   <!-- Header End -->
 
   <!-- Hero Section Begin -->
@@ -96,12 +105,12 @@
             <td>${item.id}</td>
             <td style="
     max-width: 200px;
-    word-break: break-all;">${item.key}</td>
-            <td>${item.dayReceive}</td>
-            <td>${item.dayExpired}</td>
-            <td>${item.dayCanceled}</td>
+    word-break: break-all;" title="${item.key}">${item.key}</td>
+            <jsp:useBean id="formatter" class="services.DateTimeFormat"/>
+            <td>${formatter.format(item.dayReceive)}</td>
+            <td>${formatter.format(item.dayExpired)}</td>
+            <td>${formatter.format(item.dayCanceled)}</td>
             <td>
-
               <c:if test="${item.status==1}">
               <span class="badge iq-bg-success">
 															</c:if>
@@ -304,8 +313,8 @@
             +`<td>`+key.id+`</td>
             <td style="
     max-width: 200px;
-    word-break: break-all;">`+key.key+`</td>
-            <td>`+key.dayReceive+`</td>
+    word-break: break-all;" title="`+key.key+`">`+key.key+`</td>
+            <td >`+key.dayReceive+`</td>
             <td>`+key.dayExpired+`</td>
             <td>`+key.dayCanceled+`</td>
             <td>
@@ -412,8 +421,8 @@
                          +`<td>`+key.id+`</td>
             <td style="
     max-width: 200px;
-    word-break: break-all;">`+key.key+`</td>
-            <td>`+key.dayReceive+`</td>
+    word-break: break-all;" title="`+key.key+`">`+key.key+`</td>
+            <td>`+key.dayReceive +`</td>
             <td></td>
             <td></td>
             <td>

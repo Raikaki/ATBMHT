@@ -16,7 +16,7 @@ public class DataSource {
 //	private static final String DB_URL = "jdbc:mysql://34.126.138.48/animeweb";
 	private static final String DB_URL = "jdbc:mysql://localhost/animeweb";
 	private static final String USER = "root";
-	private static final String PASS = "hcdat1232580";
+	private static final String PASS = "Linh@27092002";
 	private static final HikariConfig config = new HikariConfig();
 	private static final String CLASS_NAME = "com.mysql.cj.jdbc.Driver";
 	static HikariDataSource ds;
