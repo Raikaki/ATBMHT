@@ -66,8 +66,7 @@ public class DAOBills {
     }
 
 
-    public static boolean saveSignatureToBill(Bill bill, String privateKey) throws Exception {
-        String signature = DSA.toBase64(DSA.signBill(bill.toString(), DSA.verifyPrivateKey(privateKey)));
+    public static boolean saveSignatureToBill(Bill bill, String signature) throws Exception {
         Jdbi me = JDBiConnector.me();
         String query = "UPDATE `bills` SET `hash` = :hash WHERE (`id` = :idBill);";
         return me.withHandle(handle -> handle.createUpdate(query).bind("idBill", bill.getId()).bind("hash", signature).execute()) == 1;

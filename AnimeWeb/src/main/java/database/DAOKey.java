@@ -35,12 +35,12 @@ public class DAOKey {
                 "    dayCanceled,\n" +
                 "    CASE WHEN (NOW() BETWEEN dayReceive AND dayExpired) and (dayCanceled is null) THEN 1 ELSE 0 END AS isBetween\n" +
                 "FROM user_keys\n" +
-                "WHERE idAccount = :idAccount\n" +
+                "WHERE idAccount = :idAccount\n and dayCanceled is null " +
                 "ORDER BY dayReceive DESC\n" +
                 "LIMIT 1";
         Jdbi me = JDBiConnector.me();
         return me.withHandle(handle -> {
-            return  handle.createQuery(query).bind("idAccount",idAccount).mapToBean(Key.class).one();
+            return  handle.createQuery(query).bind("idAccount",idAccount).mapToBean(Key.class).findFirst().orElse(null);
         });
     }
     public static Key addKey(int idAccount,String userName,String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
@@ -57,7 +57,7 @@ public class DAOKey {
                     disableAllOldKey(idAccount,handle);
                     query = "INSERT INTO `user_keys` (`idAccount`, `userName`, `key`, `dayExpired`) VALUES (:idAccount,:userName,:key,DATE_ADD(NOW(), INTERVAL 70 DAY))";
                     insertedKey[0] =handle.createUpdate(query).bind("idAccount",idAccount).bind("userName",userName).bind("key",publicKey)
-                            .executeAndReturnGeneratedKeys("id").mapTo(String.class).one();
+                            .executeAndReturnGeneratedKeys("id").mapTo(String.class).findFirst().orElse("-1");
                     handle.commit();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -128,5 +128,11 @@ public class DAOKey {
 
     public static void main(String[] args) {
         accountKeyList(1);
+    }
+
+    public static Key latestKey(int idAccount) {
+        String query = "select id,`key`,dayReceive,dayExpired,dayCanceled from user_keys where idAccount =:idAccount order by dayCanceled desc limit 1\n";
+        Jdbi me = JDBiConnector.me();
+        return me.withHandle(handle -> handle.createQuery(query).bind("idAccount",idAccount).mapToBean(Key.class).first());
     }
 }

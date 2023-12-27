@@ -5,6 +5,8 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class DSA {
     private PublicKey publicKey;
     private PrivateKey privateKey;
@@ -16,22 +18,45 @@ public class DSA {
         privateKey = keyPair.getPrivate();
 
     }
+    public static boolean isMatchPrivateKey(PrivateKey privateKey, PublicKey publicKey) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
 
-    public static byte[] signBill(String data, PrivateKey privateKey) throws Exception {
-        Signature signature = Signature.getInstance("SHA256withDSA");
-        signature.initSign(privateKey);
-        signature.update(data.getBytes());
-        byte[] signatureBytes = signature.sign();
-        return signatureBytes;
+        byte[] challenge = new byte[10000];
+        ThreadLocalRandom.current().nextBytes(challenge);
+
+        Signature sig = Signature.getInstance("SHA256withDSA");
+        sig.initSign(privateKey);
+        sig.update(challenge);
+        byte[] signature = sig.sign();
+
+        sig.initVerify(publicKey);
+        sig.update(challenge);
+
+        return sig.verify(signature);
+    }
+    public static byte[] signBill(String data, PrivateKey privateKey, PublicKey publicKey) throws Exception {
+        if(isMatchPrivateKey(privateKey,publicKey)) {
+            Signature signature = Signature.getInstance("SHA256withDSA");
+            signature.initSign(privateKey);
+            signature.update(data.getBytes());
+            byte[] signatureBytes = signature.sign();
+            return signatureBytes;
+        }else{
+            return new byte[0];
+        }
     }
 
     public static boolean verifyBill(String data, PublicKey publicKey, String signatureData) throws Exception {
+        if(signatureData==null||signatureData.trim().equals("")){
+            return false;
+        }
         Signature signature = Signature.getInstance("SHA256withDSA");
         signature.initVerify(publicKey);
         signature.update(data.getBytes());
         byte[] signatureBytes = Base64.getDecoder().decode(signatureData);
         return signature.verify(signatureBytes);
     }
+
+
 
     public  String publicKeyToBase64() {
         return Base64.getEncoder().encodeToString(publicKey.getEncoded());
@@ -81,7 +106,5 @@ public class DSA {
         return Base64.getEncoder().encodeToString(bytes);
     }
 
-    public static void main(String[] args) throws Exception {
 
-    }
 }
