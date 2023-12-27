@@ -87,7 +87,7 @@
                                             <div class="table__film_detail">
                                                 <table>
                                                     <c:forEach var="movie"
-                                                               items="${requestScope.bill_movies}">
+                                                               items="${sessionScope.bill_movies}">
                                                         <tr>
                                                             <td><img
                                                                     src=${movie.getFirstAvatar()} alt=${movie.getFirstAvatar()}
@@ -116,12 +116,13 @@
                             </div>
                             <div class="payment">
                                 <div class="bill">
-                                    <div>Total : ${requestScope.bill_movies.size()}</div>
+                                    <div>Total : ${sessionScope.bill_movies.size()}</div>
                                     <div class="price_total">
                                         <div>
                                             Total Price: ${requestScope.bill_detail.totalPrice} VND
                                             <input type="hidden" name="refundValue" id="refundValue"
-                                                   value="${requestScope.bill_detail.totalPrice}">
+                                                   value="${requestScope.totalPrice}">
+                                            <input type="hidden" name="billId" id="billId" value="${requestScope.bill_detail.id}">
                                             <c:choose>
                                                 <c:when test="${verify==true}">
                                                     <div style="color:  #02ff02">Đơn hàng đã được xác thực
@@ -131,9 +132,16 @@
                                                     <input type="hidden" name="captureId" id="captureId"
                                                            value="${requestScope.captureId}">
                                                     <div style="color: #ff7070">Đơn hàng không được xác thực</div>
-                                                    <button id="refundButton" onclick="performRefund()">Perform Refund</button>
+                                                    <c:if test="${requestScope.isRefund}">
+                                                        <div style="color:  #02ff02">ĐƠN HÀNG ĐÃ ĐƯỢC HOÀN TIỀN
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${requestScope.isRefund == false}" >
+                                                        <button id="refundButton" onclick="performRefund()">Perform Refund</button>
 
-                                                    <div id="result"></div>
+                                                        <div id="result"></div>
+                                                    </c:if>
+
                                                 </c:otherwise>
                                             </c:choose>
                                             <%--                                            <div><input type="hidden" name="denominations" value="${sessionScope.order.totalPrice}">--%>
@@ -212,13 +220,15 @@
     }
     async function performRefund() {
         var captureId = $("#captureId").val();
+        var billId = $("#billId").val();
         const refundValue = await convertCurrency();
         $.ajax({
             type: "POST",
-            url: "/refund", // Tên servlet hoặc đường dẫn tương ứng
+            url: "refund", // Tên servlet hoặc đường dẫn tương ứng
             data: {
                 captureId: captureId,
-                refundValue: refundValue
+                refundValue: refundValue,
+                billId: billId
 
             },
 
