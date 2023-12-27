@@ -65,6 +65,17 @@ public class DAOBills {
         );
     }
 
+    public static boolean getIsRefund(int idBill) {
+        Jdbi jdbi = JDBiConnector.me();
+        String query = "SELECT isRefund FROM bills WHERE id = :id AND isDelete = 0";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("id", idBill)
+                        .mapTo(Boolean.class) // Map to boolean directly
+                        .one()
+        );
+    }
 
     public static boolean saveSignatureToBill(Bill bill, String privateKey) throws Exception {
         String signature = DSA.toBase64(DSA.signBill(bill.toString(), DSA.verifyPrivateKey(privateKey)));
@@ -90,7 +101,7 @@ public class DAOBills {
 
     public static List<Bill> getAccountBills(int idAccount) {
         Jdbi me = JDBiConnector.me();
-        String query = "SELECT b.id, b.bill_num, b.create_At, b.isPurchased, b.hash, a.fullName FROM bills b JOIN accounts a ON b.idAccount = a.id WHERE isDelete = 0 AND idAccount = :idAccount";
+        String query = "SELECT b.id, b.bill_num, b.create_At, b.isPurchased, b.hash, a.fullName FROM bills b JOIN accounts a ON b.idAccount = a.id WHERE isDelete = 0 AND idAccount = :idAccount and isPurchased = 1";
 
         List<Bill> bills = me.withHandle(handle ->
                 handle.createQuery(query)
@@ -130,5 +141,10 @@ public class DAOBills {
                         .list()
         );
     }
+
+    public static void main(String[] args) {
+        System.out.println(getIsRefund(41));
+    }
+
 
 }

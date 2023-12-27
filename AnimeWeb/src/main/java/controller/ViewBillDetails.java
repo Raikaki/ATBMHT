@@ -30,8 +30,10 @@ public class ViewBillDetails extends HttpServlet {
 
         billDetails = DAOBills.getBillDetailsByBillId(bill.getId());
         System.out.println(billDetails);
+        double totalPrice =0;
         for (Bill_detail b : billDetails
         ) {
+            totalPrice += b.getPrice();
             movieList.add(b.getMovie());
         }
         boolean verify;
@@ -40,12 +42,15 @@ public class ViewBillDetails extends HttpServlet {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+       boolean isRefund = DAOBills.getIsRefund(bill.getId());
       String captureId =  DAOBills.getCaptureId(bill.getId());
             System.out.println(bill.getTotalPrice());
         System.out.println(verify);
+        request.setAttribute("isRefund",isRefund);
+        request.setAttribute("totalPrice",totalPrice);
         request.setAttribute("captureId", captureId);
         request.setAttribute("verify", verify);
-        request.setAttribute("bill_movies", movieList);
+        session.setAttribute("bill_movies", movieList);
         request.setAttribute("bill_detail", bill);
         request.getRequestDispatcher("/anime-main/bills_detail.jsp").forward(request, response);
 
