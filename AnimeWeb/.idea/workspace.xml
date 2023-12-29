@@ -5,14 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51a3cd3e-5d6f-4b6b-a970-38c8546f428b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/database/DAOBills.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/database/DAOBills.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/database/DataSource.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/database/DataSource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/database/DAOBills.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/WEB-INF/classes/database/DAOBills.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/anime-main/checkout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/anime-main/checkout.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/DAOBills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DAOBills.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Bill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/anime-main/checkout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/anime-main/checkout.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/DAOMovie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DAOMovie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/DataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DataSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/walletController/signature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/walletController/signature.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -324,6 +333,7 @@
       <workItem from="1702890703005" duration="82000" />
       <workItem from="1703673196954" duration="483000" />
       <workItem from="1703830776157" duration="2743000" />
+      <workItem from="1703836276348" duration="996000" />
     </task>
     <servers />
   </component>

@@ -322,6 +322,7 @@
                         document.getElementById("buyMovie2").style.display = "none";
                         // Hiển thị nút "Thanh toán ngay"
                         document.getElementById("paypal-button-container").style.display = "block";
+
                         // Hiển thị phần tử chứa nút PayPal
 
 

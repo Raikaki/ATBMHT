@@ -12,6 +12,7 @@ public class DAOMovie {
 
     }
 
+
     public static double getPercentBonus(int idMovie) {
         String query = "SELECT bn.percent from movies m join movies_bonus mb on m.id = mb.idMovie join bonus bn on mb.idBonus = bn.id where m.id=:idMovie and now() BETWEEN  bn.dayBegin and bn.dayEnd and bn.status =1;";
         Jdbi me = JDBiConnector.me();
@@ -747,7 +748,7 @@ public class DAOMovie {
     }
 
     public static void updateMoviePurchasedStatus(int idAccount, int idMovie,int idBill) {
-        String updateQuery = "UPDATE movies_purchased SET status = 0 WHERE idAccount = :idAccount AND idMovie = :idMovie AND idBill=:idBill;";
+        String updateQuery = "UPDATE movies_purchased SET status = 0 WHERE idAccount = :idAccount AND idBill=:idBill;";
 
         Jdbi jdbi = JDBiConnector.me();
 
