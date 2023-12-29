@@ -30,7 +30,8 @@ public class login extends HttpServlet {
 		HttpSession session = request.getSession();
 		Account user = null;
 		String recaptcha = request.getParameter("g-recaptcha-response");
-		boolean verify = VerifyRecaptcha.verify(recaptcha);
+//		boolean verify = VerifyRecaptcha.verify(recaptcha);
+		boolean verify = true;
 		String error="";
 		String encryptPassword;
 		Encode encode = new Encode();
