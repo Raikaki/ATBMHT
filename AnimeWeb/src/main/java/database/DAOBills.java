@@ -45,6 +45,7 @@ public class DAOBills {
     public static int getAccountIdByBillId(int idBill) {
         Jdbi jdbi = JDBiConnector.me();
         String query = "SELECT idAccount FROM bills WHERE id = :id and isDelete=0 ";
+
         return jdbi.withHandle(handle ->
                 handle.createQuery(query)
                         .bind("id", idBill)

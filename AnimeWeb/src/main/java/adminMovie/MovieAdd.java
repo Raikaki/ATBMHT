@@ -11,6 +11,7 @@ import services.ImageUpload;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
@@ -52,7 +53,7 @@ public class MovieAdd extends HttpServlet {
                 request.getRequestDispatcher("/admin/MovieAdd").forward(request,response);
                 return;
             }else{
-                String realPath =request.getServletContext().getRealPath("/");
+                String realPath =request.getServletContext().getRealPath("/") ;
                 Date date = new Date();
                 String addExtension = String.valueOf(date.getTime());
                 String name = request.getParameter("name");

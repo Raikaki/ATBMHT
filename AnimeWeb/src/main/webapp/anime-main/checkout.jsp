@@ -308,23 +308,36 @@
                     fileContent: uploadedFileContent
                 },
                 success: function (data) {
-                    // Handle success using data from the uploaded file
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'SIGN',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    document.getElementById("verifyOrderButton").style.display = "none";
-                    document.getElementById("buyMovie2").style.display = "none";
-                    // Hiển thị nút "Thanh toán ngay"
-                    // document.getElementById("buyMovie").style.display = "block";
-                    document.getElementById("paypal-button-container").style.display = "block";
-                    // Hiển thị phần tử chứa nút PayPal
+                    let dataParse = JSON.parse(data);
+                    let isSuccess = dataParse.isSuccess;
+                    if(isSuccess){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'SIGN',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        document.getElementById("verifyOrderButton").style.display = "none";
+                        document.getElementById("buyMovie2").style.display = "none";
+                        // Hiển thị nút "Thanh toán ngay"
+                        document.getElementById("paypal-button-container").style.display = "block";
+
+                        // Hiển thị phần tử chứa nút PayPal
 
 
-                    $("#dialog1").dialog('close');
+                        $("#dialog1").dialog('close');
+                    }else{
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: dataParse.message,
+
+                            showConfirmButton: true
+
+                        });
+                    }
+
                 },
                 error: function (data) {
                     // Handle error

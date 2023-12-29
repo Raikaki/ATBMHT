@@ -154,7 +154,7 @@ tasks.withType(JavaCompile) {
 apply plugin: 'org.hidetake.ssh'
 remotes {
     host {
-        host = '35.213.134.216'
+        host = '35.213.189.29'
         user = 'yaemiko27092002'
         identity =file('C:/Users/Admin/.ssh/id_rsa')
 
@@ -226,7 +226,7 @@ task docker_upload_file_to_server {
 //                execute 'docker run -it -d ' +
 //                        '--name tomcat9 ' +
 //                        '-v /usr/deploy:/usr/local/tomcat/webapps ' +
-//                        '-p 80:8080 ' + '-p 443:443'+
+//                        '-p 80:8080 ' + '-p 443:8443'+
 //                        'tomcat:9.0&'
 //            }
 //        }
