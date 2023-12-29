@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss/dd-MM-yyyy");
 
     @Override
     public void write(JsonWriter out, LocalDateTime value) throws IOException {
@@ -28,4 +28,5 @@ public class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
             return LocalDateTime.parse(value, formatter);
         }
     }
+
 }

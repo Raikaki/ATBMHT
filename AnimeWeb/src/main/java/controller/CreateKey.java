@@ -9,17 +9,24 @@ import model.Key;
 import model.LocalDateTimeAdapter;
 import security.DSA;
 
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 @WebServlet(name = "CreateKey", value = "/anime-main/CreateKey")
@@ -54,8 +61,36 @@ public class CreateKey extends HttpServlet {
                 message.setFrom(new InternetAddress("20130305@st.hcmuaf.edu.vn", "Web phim"));
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
                 message.setSubject("Cấp privateKey cho chữ ký điện tử", "UTF-8");
-                message.setContent("Private key của bạn là :" + privateKey, "text/plain; charset=UTF-8");
+
+                MimeBodyPart messageBodyPart = new MimeBodyPart();
+                messageBodyPart.setText("Đây là file private key mới của bạn", "UTF-8");
+
+
+                Path tempFilePath = Files.createTempFile("tempFile", ".txt");
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFilePath.toFile()))) {
+                    writer.write(privateKey);
+                }
+
+
+                MimeBodyPart attachmentPart = new MimeBodyPart();
+                DataSource source = new FileDataSource(tempFilePath.toFile());
+                attachmentPart.setDataHandler(new DataHandler(source));
+                attachmentPart.setFileName("PrivateKey.txt");
+
+
+                Multipart multipart = new MimeMultipart();
+                multipart.addBodyPart(messageBodyPart);
+                multipart.addBodyPart(attachmentPart);
+
+
+                message.setContent(multipart);
+
+
                 Transport.send(message);
+
+
+                Files.delete(tempFilePath);
+
                 object.addProperty("key",gson.toJson(createdKey));
                 response.getWriter().println(object);
             }

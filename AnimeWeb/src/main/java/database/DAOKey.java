@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DAOKey {
     public static List<Key> keyList(){
-        String query="select id,idAccount,userName,`key`,dayReceive,dayExpired,dayCanceled,CASE WHEN NOW() BETWEEN dayReceive AND dayExpired THEN 1 ELSE 0 END AS status  from user_keys";
+        String query="select id,idAccount,userName,`key`,dayReceive,dayExpired,dayCanceled,CASE WHEN (NOW() BETWEEN dayReceive AND dayExpired) and (dayCanceled is null) THEN 1 ELSE 0 END AS status  from user_keys";
         Jdbi me = JDBiConnector.me();
         return me.withHandle(handle -> {
           return  handle.createQuery(query).mapToBean(Key.class).stream().toList();
@@ -20,7 +20,7 @@ public class DAOKey {
 
     }
     public static List<Key> accountKeyList(int idAccount){
-        String query="select id,`key`,dayReceive,dayExpired,dayCanceled,CASE WHEN NOW() BETWEEN dayReceive AND dayExpired THEN 1 ELSE 0 END AS status from user_keys where idAccount =:idAccount order by dayReceive desc";
+        String query="select id,`key`,dayReceive,dayExpired,dayCanceled,CASE WHEN (NOW() BETWEEN dayReceive AND dayExpired) and (dayCanceled is null)  THEN 1 ELSE 0 END AS status from user_keys where idAccount =:idAccount order by dayReceive desc";
         Jdbi me = JDBiConnector.me();
         return me.withHandle(handle -> {
             return  handle.createQuery(query).bind("idAccount",idAccount).mapToBean(Key.class).stream().toList();
@@ -33,21 +33,20 @@ public class DAOKey {
                 "    dayReceive,\n" +
                 "    dayExpired,\n" +
                 "    dayCanceled,\n" +
-                "    CASE WHEN NOW() BETWEEN dayReceive AND dayExpired THEN 1 ELSE 0 END AS isBetween\n" +
+                "    CASE WHEN (NOW() BETWEEN dayReceive AND dayExpired) and (dayCanceled is null) THEN 1 ELSE 0 END AS isBetween\n" +
                 "FROM user_keys\n" +
-                "WHERE idAccount = :idAccount\n" +
+                "WHERE idAccount = :idAccount\n and dayCanceled is null " +
                 "ORDER BY dayReceive DESC\n" +
                 "LIMIT 1";
         Jdbi me = JDBiConnector.me();
         return me.withHandle(handle -> {
-            return  handle.createQuery(query).bind("idAccount",idAccount).mapToBean(Key.class).one();
+            return  handle.createQuery(query).bind("idAccount",idAccount).mapToBean(Key.class).findFirst().orElse(null);
         });
     }
     public static Key addKey(int idAccount,String userName,String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
         DSA.verifyPublicKey(publicKey);
         boolean isEnable;
         Jdbi me = JDBiConnector.me();
-
         isEnable = DAOKey.isExistPublicKey(publicKey);
         final String[] insertedKey = {""};
         if(isEnable){
@@ -58,7 +57,7 @@ public class DAOKey {
                     disableAllOldKey(idAccount,handle);
                     query = "INSERT INTO `user_keys` (`idAccount`, `userName`, `key`, `dayExpired`) VALUES (:idAccount,:userName,:key,DATE_ADD(NOW(), INTERVAL 70 DAY))";
                     insertedKey[0] =handle.createUpdate(query).bind("idAccount",idAccount).bind("userName",userName).bind("key",publicKey)
-                            .executeAndReturnGeneratedKeys("id").mapTo(String.class).one();
+                            .executeAndReturnGeneratedKeys("id").mapTo(String.class).findFirst().orElse("-1");
                     handle.commit();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -104,7 +103,7 @@ public class DAOKey {
     }
     public static Key findKeyById(String keyId){
         Jdbi me = JDBiConnector.me();
-        String query = "select id,`key`,dayReceive,dayExpired,dayCanceled,CASE WHEN NOW() BETWEEN dayReceive AND dayExpired THEN 1 ELSE 0 END AS status from user_keys where id = :id";
+        String query = "select id,`key`,dayReceive,dayExpired,dayCanceled,CASE WHEN (NOW() BETWEEN dayReceive AND dayExpired) and (dayCanceled is null) THEN 1 ELSE 0 END AS status from user_keys where id = :id";
         return me.withHandle(handle->handle.createQuery(query).bind("id",keyId).mapToBean(Key.class).findFirst().orElse(null));
     }
     public static boolean isExistPublicKey(String publicKey) {
@@ -127,4 +126,13 @@ public class DAOKey {
         }
     }
 
+    public static void main(String[] args) {
+        accountKeyList(1);
+    }
+
+    public static Key latestKey(int idAccount) {
+        String query = "select id,`key`,dayReceive,dayExpired,dayCanceled from user_keys where idAccount =:idAccount order by dayCanceled desc limit 1\n";
+        Jdbi me = JDBiConnector.me();
+        return me.withHandle(handle -> handle.createQuery(query).bind("idAccount",idAccount).mapToBean(Key.class).first());
+    }
 }

@@ -1,5 +1,6 @@
 package model;
 
+
 import java.time.LocalDateTime;
 
 public class Key {
@@ -12,6 +13,7 @@ public class Key {
     private LocalDateTime dayCanceled;
     private int status;
     private String statusDescription;
+
     public Key() {
     }
 
@@ -63,6 +65,8 @@ public class Key {
         this.dayCanceled = dayCanceled;
     }
 
+
+
     public int getStatus() {
         return status;
     }
@@ -106,4 +110,5 @@ public class Key {
                 ", statusDescription='" + statusDescription + '\'' +
                 '}';
     }
+
 }

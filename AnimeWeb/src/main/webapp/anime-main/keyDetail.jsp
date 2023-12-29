@@ -36,6 +36,14 @@
   <script src="https://kit.fontawesome.com/9847adceef.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+  <style>
+    #key-list-table tbody tr td:nth-child(3){
+      white-space:nowrap;
+      text-overflow : ellipsis;
+      overflow : hidden;
+
+    }
+  </style>
 </head>
 
 <body>
@@ -55,6 +63,7 @@
 
   <!-- Header Section Begin -->
   <c:import url="/anime-main/header.jsp"/>
+
   <!-- Header End -->
 
   <!-- Hero Section Begin -->
@@ -83,9 +92,9 @@
           <th>id</th>
           <th>Public key</th>
           <th>Ngày tạo</th>
-          <th>Ngày hết hạn</th>
-          <th>Ngày hủy</th>
-          <th>Trạng thái</th>
+          <th >Ngày hết hạn</th>
+          <th >Ngày hủy</th>
+          <th >Trạng thái</th>
           <th>Thao tác</th>
         </tr>
         </thead>
@@ -96,12 +105,12 @@
             <td>${item.id}</td>
             <td style="
     max-width: 200px;
-    word-break: break-all;">${item.key}</td>
-            <td>${item.dayReceive}</td>
-            <td>${item.dayExpired}</td>
-            <td>${item.dayCanceled}</td>
-            <td>
-
+    word-break: break-all;" title="${item.key}">${item.key}</td>
+            <jsp:useBean id="formatter" class="services.DateTimeFormat"/>
+            <td>${formatter.format(item.dayReceive)}</td>
+            <td id="dayExpired">${formatter.format(item.dayExpired)}</td>
+            <td id="dayCanceled">${formatter.format(item.dayCanceled)}</td>
+            <td id="renderIsActive">
               <c:if test="${item.status==1}">
               <span class="badge iq-bg-success">
 															</c:if>
@@ -112,7 +121,7 @@
             </td>
             <td>
               <c:if test="${item.status==1}">
-                <button class="btn btn-danger" type="button" onclick="lostKey(this)">
+                <button class="btn btn-danger" type="button" id="lostBt" onclick="lostKey(this)">
                   <fmt:message>button.lost</fmt:message>
                 </button>
               </c:if>
@@ -297,19 +306,19 @@
             let key = JSON.parse((JSON.parse(data)).newKey);
             let status = key.status;
             let statusString = key.status==1?`<span class="badge iq-bg-success">`:`<span class="badge iq-bg-danger">`;
-            let bt = key.status==1?`<button class="btn btn-danger"type="button" onclick="lostKey(this)">
+            let bt = key.status==1?`<button class="btn btn-danger"type="button" id="lostBt" onclick="lostKey(this)">
                       <fmt:message>button.lost</fmt:message>
                     </button>`:"";
               let appendInsert=`<tr style="background-color:rgba(0,0,0,.05)"> <td></td>`
             +`<td>`+key.id+`</td>
             <td style="
     max-width: 200px;
-    word-break: break-all;">`+key.key+`</td>
-            <td>`+key.dayReceive+`</td>
-            <td>`+key.dayExpired+`</td>
-            <td>`+key.dayCanceled+`</td>
+    word-break: break-all;" title="`+key.key+`">`+key.key+`</td>
+            <td  >`+key.dayReceive+`</td>
+            <td id="dayExpired">`+key.dayExpired+`</td>
+            <td id="dayCanceled">`+key.dayCanceled+`</td>
             <td>
-              <div id="renderIsActive`+key.id+`">`+statusString+
+              <div id="renderIsActive">`+statusString+
                       key.statusDescription+`</span>
             </div>
             </td>
@@ -354,9 +363,15 @@
           url: "LostKey",
           type: "post",
           success: function (data) {
-            let isSuccess = (JSON.parse(data)).isSuccess;
+            let dataParse = JSON.parse(data);
+            let isSuccess = dataParse.isSuccess;
+            let keyDisable = JSON.parse(dataParse.key);
+
             if (isSuccess) {
-            $(button).closest("tr").find("td")[5].innerHTML=`<span class="badge iq-bg-danger">Đã hết hạn</span>`;
+
+              $(button).closest("tr").find("#dayExpired").html(keyDisable.dayExpired);
+              $(button).closest("tr").find("#dayCanceled").html(keyDisable.dayCanceled);
+              $(button).closest("tr").find("#renderIsActive").html(`<span class="badge iq-bg-danger">Đã hết hạn</span>`);
               $(button).remove();
               Swal.fire({
                 icon: 'success',
@@ -401,23 +416,20 @@
           type: "post",
           success: function (data) {
                let key = JSON.parse((JSON.parse(data)).key);
-               console.log(key)
-                console.log(key.key)
-                 let status = key.status;
                  let statusString = key.status==1?`<span class="badge iq-bg-success">`:`<span class="badge iq-bg-danger">`;
-                 let bt = key.status==1?`<button class="btn btn-danger" type="button" onclick="lostKey(this)">
+                 let bt = key.status==1?`<button class="btn btn-danger" id="lostBt" type="button" onclick="lostKey(this)">
                       <fmt:message>button.lost</fmt:message>
                     </button>`:"";
                  let appendInsert=`<tr style="background-color:rgba(0,0,0,.05)"> <td></td>`
                          +`<td>`+key.id+`</td>
             <td style="
     max-width: 200px;
-    word-break: break-all;">`+key.key+`</td>
-            <td>`+key.dayReceive+`</td>
-            <td></td>
-            <td></td>
+    word-break: break-all;" title="`+key.key+`">`+key.key+`</td>
+            <td >`+key.dayReceive +`</td>
+            <td id="dayExpired">`+key.dayExpired+`</td>
+            <td id="dayCanceled"></td>
             <td>
-              <div id="renderIsActive`+key.id+`">`+statusString+
+              <div id="renderIsActive">`+statusString+
                          key.statusDescription+`</span>
             </div>
             </td>
@@ -426,11 +438,13 @@
             </td>
           </tr>`;
                  let firstRow = $($("#key-list-table").find("tr")[1]);
-                 let btLost = $($(firstRow).find("td")[7]).find("button")[0];
+                 let btLost = $($(firstRow).find("#lostBt"));
                  if(btLost!=null){
                  $(btLost).remove();
                  }
-                 $($(firstRow).find("td")[5]).innerHTML =`<span class="badge iq-bg-danger">Đã hết hạn</span>`;
+                 $($(firstRow).find("#dayCanceled")).html(key.dayReceive);
+                 $($(firstRow).find("#dayExpired")).html(key.dayReceive);
+                 $($(firstRow).find("#renderIsActive")).html(`<span class="badge iq-bg-danger">Đã hết hạn</span>`);
                  $("#key-list-table").prepend(appendInsert);
                  Swal.fire({
                    icon: 'success',
