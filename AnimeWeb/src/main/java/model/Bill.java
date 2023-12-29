@@ -40,10 +40,13 @@ public class Bill {
     @Override
     public String toString() {
         return "Bill{" +
-                "idAccount=" + idAccount +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", idAccount=" + idAccount +
                 ", bill_num=" + bill_num +
-                ", billDetail=" + billDetail +
+                ", createAt=" + createAt +
                 ", totalPrice=" + totalPrice +
+                ", isDelete=" + isDelete +
                 ", publicKey='" + publicKey + '\'' +
                 '}';
     }

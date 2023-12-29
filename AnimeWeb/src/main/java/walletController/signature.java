@@ -58,7 +58,7 @@ public class signature extends HttpServlet {
            Bill bill =  DAOBills.getBillById(id_bill);
            boolean isSign = false;
            try {
-               byte[] signData = DSA.signBill(bill.toString(),DSA.verifyPrivateKey(privateKey),DSA.verifyPublicKey(publicKey.getKey()));
+               byte[] signData = DSA.signBill(bill.toString()+DAOBills.getBillDetail(bill.getId()).toString(),DSA.verifyPrivateKey(privateKey),DSA.verifyPublicKey(publicKey.getKey()));
                if(!(signData.length>0)){
                    object.addProperty("isSuccess",false);
                    object.addProperty("message","PrivateKey không hợp lệ với PublicKey hiện tại");

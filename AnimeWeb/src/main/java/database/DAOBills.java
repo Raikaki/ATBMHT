@@ -65,6 +65,7 @@ public class DAOBills {
         );
     }
 
+
     public static boolean getIsRefund(int idBill) {
         Jdbi jdbi = JDBiConnector.me();
         String query = "SELECT isRefund FROM bills WHERE id = :id AND isDelete = 0";
@@ -89,7 +90,8 @@ public class DAOBills {
     }
 
     public static boolean verifySignatureBill(Bill bill, String publicKey) throws Exception {
-        return DSA.verifyBill(bill.toString(), DSA.verifyPublicKey(publicKey), getBillSignature(bill.getId()));
+        String bills_detail = getBillDetail(bill.getId()).toString();
+        return DSA.verifyBill(bill.toString()+bills_detail, DSA.verifyPublicKey(publicKey), getBillSignature(bill.getId()));
     }
 
     public static String getBillSignature(int id) {
