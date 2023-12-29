@@ -159,12 +159,12 @@
                     <a href="${check}?action=back">
                         <button id="buyMovie2">Quay lại</button>
                     </a>
-                    <button id="buyMovie" class="charge" style="display: none;" onclick="handlePayment()">Thanh toán
+                    <button id="verifyOrderButton" class="verifyOrderButton" style="display: block;" onclick="verifyOrder()">Thanh toán
                         ngay
                     </button>
                     <div id="paypal-button-container" style="display: none;"></div>
-                    <button id="verifyOrderButton" style="display: block;" onclick="verifyOrder()">Xác thực đơn hàng
-                    </button>
+<%--                    <button id="verifyOrderButton" style="display: block;" onclick="verifyOrder()">Xác thực đơn hàng--%>
+<%--                    </button>--%>
 
                     <div class="dialog" style="  left: 45%!important; top: 40%!important">
                         <div id="dialog1" title="Xác thực đơn hàng"
@@ -319,8 +319,8 @@
                     document.getElementById("verifyOrderButton").style.display = "none";
                     document.getElementById("buyMovie2").style.display = "none";
                     // Hiển thị nút "Thanh toán ngay"
-                    document.getElementById("buyMovie").style.display = "block";
-
+                    // document.getElementById("buyMovie").style.display = "block";
+                    document.getElementById("paypal-button-container").style.display = "block";
                     // Hiển thị phần tử chứa nút PayPal
 
 

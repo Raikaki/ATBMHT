@@ -45,7 +45,6 @@ public class DAOBills {
     public static int getAccountIdByBillId(int idBill) {
         Jdbi jdbi = JDBiConnector.me();
         String query = "SELECT idAccount FROM bills WHERE id = :id and isDelete=0 ";
-
         return jdbi.withHandle(handle ->
                 handle.createQuery(query)
                         .bind("id", idBill)
@@ -65,6 +64,7 @@ public class DAOBills {
         );
     }
 
+
     public static boolean getIsRefund(int idBill) {
         Jdbi jdbi = JDBiConnector.me();
         String query = "SELECT isRefund FROM bills WHERE id = :id AND isDelete = 0";
@@ -78,7 +78,8 @@ public class DAOBills {
     }
 
     public static boolean saveSignatureToBill(Bill bill, String privateKey) throws Exception {
-        String signature = DSA.toBase64(DSA.signBill(bill.toString(), DSA.verifyPrivateKey(privateKey)));
+        String bills_detail = getBillDetail(bill.getId()).toString();
+        String signature = DSA.toBase64(DSA.signBill(bill.toString()+bills_detail, DSA.verifyPrivateKey(privateKey)));
         Jdbi me = JDBiConnector.me();
         String query = "UPDATE `bills` SET `hash` = :hash WHERE (`id` = :idBill);";
         return me.withHandle(handle -> handle.createUpdate(query).bind("idBill", bill.getId()).bind("hash", signature).execute()) == 1;
@@ -90,7 +91,8 @@ public class DAOBills {
     }
 
     public static boolean verifySignatureBill(Bill bill, String publicKey) throws Exception {
-        return DSA.verifyBill(bill.toString(), DSA.verifyPublicKey(publicKey), getBillSignature(bill.getId()));
+        String bills_detail = getBillDetail(bill.getId()).toString();
+        return DSA.verifyBill(bill.toString()+bills_detail, DSA.verifyPublicKey(publicKey), getBillSignature(bill.getId()));
     }
 
     public static String getBillSignature(int id) {
