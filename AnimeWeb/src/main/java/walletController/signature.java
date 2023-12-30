@@ -32,6 +32,16 @@ public class signature extends HttpServlet {
            String ipClient = request.getRemoteAddr();
            String action = request.getParameter("action");
            Order order = (Order) session.getAttribute("order");
+           PrintWriter out = response.getWriter();
+
+           JsonObject object = new JsonObject();
+           Key publicKey = DAOKey.accountKeyNow(user.getId());
+           if(order==null){
+               object.addProperty("isSuccess",false);
+               object.addProperty("message","Đơn hàng không còn hiệu lực");
+               out.print(object);
+               return;
+           }
            DAORecharge daoRecharge = new DAORecharge();
            Log log = new Log(Log.INFO, -1, ipClient, "checkout", null, 1);
            HashMap<String, WishListDetail> wishlist = (HashMap<String, WishListDetail>) session.getAttribute("wishlist");
@@ -44,10 +54,7 @@ public class signature extends HttpServlet {
            String privateKey = request.getParameter("fileContent");
            int billNum = (int) session.getAttribute("number");
            List<Movie> movieList = order.getSelectedMovies();
-           PrintWriter out = response.getWriter();
 
-           JsonObject object = new JsonObject();
-           Key publicKey = DAOKey.accountKeyNow(user.getId());
            if(publicKey==null){
                object.addProperty("isSuccess",false);
                object.addProperty("message","Người dùng hiện chưa có Key nào đang được áp dụng");
@@ -68,7 +75,10 @@ public class signature extends HttpServlet {
                }
                isSign = DAOBills.saveSignatureToBill(bill, DSA.toBase64(signData));
            } catch (Exception e) {
-               throw new RuntimeException(e);
+               object.addProperty("isSuccess",false);
+               object.addProperty("message","File không hợp lệ");
+               out.print(object);
+               return;
            }
 
            if (isSign) {
