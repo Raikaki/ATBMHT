@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="51a3cd3e-5d6f-4b6b-a970-38c8546f428b" name="Changes" comment="" />
+    <list default="true" id="51a3cd3e-5d6f-4b6b-a970-38c8546f428b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/anime-main/checkout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/exploded/AnimeWeb.war/anime-main/checkout.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/DAOBills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DAOBills.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/DataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DataSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/walletController/RefundServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/walletController/RefundServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/anime-main/bill.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/anime-main/bill.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/anime-main/bills_detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/anime-main/bills_detail.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/anime-main/checkout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/anime-main/checkout.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/anime-main/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/anime-main/header.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/anime-main/wish-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/anime-main/wish-list.jsp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -316,6 +328,7 @@
       <workItem from="1703673196954" duration="483000" />
       <workItem from="1703830776157" duration="2743000" />
       <workItem from="1703836276348" duration="1601000" />
+      <workItem from="1703946335834" duration="1828000" />
     </task>
     <servers />
   </component>

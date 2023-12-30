@@ -141,10 +141,10 @@
                             <button class="checkout-button" id="checkout-button">
                                 <fmt:message>button.payOder</fmt:message></button>
                         </a></div>
-                        <div style="margin-top: -30px;"><a href="${checkoutWishList}?action=checkoutAll">
-                            <button class="checkout-button" id="checkoutAll-button">
-                                <fmt:message>button.payAllOder</fmt:message></button>
-                        </a></div>
+<%--                        <div style="margin-top: -30px;"><a href="${checkoutWishList}?action=checkoutAll">--%>
+<%--                            <button class="checkout-button" id="checkoutAll-button">--%>
+<%--                                <fmt:message>button.payAllOder</fmt:message></button>--%>
+<%--                        </a></div>--%>
                         <div style="margin-top: -30px;">
                             <button class="removeAll"><fmt:message>button.removeAll</fmt:message></button>
                         </div>

@@ -54,7 +54,7 @@
                         <div class="row">
                             <div class="col-lg-8 col-md-8 col-sm-8">
                                 <div class="section-title">
-                                    <h4>Danh sách hóa đơn</h4>
+                                    <h4>List of bills</h4>
                                 </div>
                             </div>
 
@@ -78,7 +78,7 @@
                                                 <td>${bill.fullName}</td>
                                                 <td>${bill.formattedCreateAt}</td>
                                                 <td>
-                                                    <button type="button" onclick="viewBillDetails(${bill.id})">Xem chi tiết</button>
+                                                    <button type="button" onclick="viewBillDetails(${bill.id})">View detail</button>
 
                                                 </td>
                                             </tr>
