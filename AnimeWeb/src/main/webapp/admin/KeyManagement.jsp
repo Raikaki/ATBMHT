@@ -76,12 +76,17 @@
                   <c:forEach var="item" items="${requestScope.keyList}">
                     <tr>
                      <td>${item.id}</td>
+                      <td style="
+    max-width: 200px;
+    word-break: break-all; max-height: 62px;  white-space:nowrap;
+      text-overflow : ellipsis;
+      overflow : hidden;" title="${item.key}" onclick="copyToClipboard(this)">${item.key}</td>
                       <td>${item.idAccount}</td>
                       <td>${item.userName}</td>
-                      <td>${item.key}</td>
-                      <td>${item.dayReceive}</td>
-                      <td>${item.dayExpired}</td>
-                      <td>${item.dayCanceled}</td>
+                      <jsp:useBean id="formatter" class="services.DateTimeFormat"/>
+                      <td>${formatter.format(item.dayReceive)}</td>
+                      <td id="dayExpired">${formatter.format(item.dayExpired)}</td>
+                      <td id="dayCanceled">${formatter.format(item.dayCanceled)}</td>
                       <td><div id="renderIsActive${item.id}">
                         <c:if test="${item.status==1}">
                         <span class="badge iq-bg-success">
@@ -165,7 +170,18 @@
 <script src="js/custom.js"></script>
 <script>
   var tableAccount;
-
+  function copyToClipboard(element) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).html()).select();
+    document.execCommand("copy");
+    $temp.remove();
+    Swal.fire(
+            'Good job!',
+            'Sao chép khóa thành công!',
+            'success'
+    )
+  }
   $(document).ready(function () {
     tableSupplier=$('#key-list-table').DataTable({
       rowId: 'row_num',

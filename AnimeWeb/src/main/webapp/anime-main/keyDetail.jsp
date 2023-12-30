@@ -23,6 +23,7 @@
           rel="stylesheet">
 
   <!-- Css Styles -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
   <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
   <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
   <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
@@ -71,12 +72,12 @@
 
     <div class="container">
       <span class="addKey float-right mb-3 mr-2">
-                              <button class="btn btn-sm iq-bg-success" style="background:#ecfff6 !important;color: #65f9b3!important"><i
+                              <button class="btn btn-outline-light"><i
                                       class="ri-add-fill"><span class="pl-1">Nhập key</span></i>
                               </button>
                               </span>
       <span class="createKey float-right mb-3 mr-2">
-                              <button class="btn btn-sm iq-bg-success" style="background:#ecfff6 !important;color: #65f9b3!important"><i
+                              <button class="btn btn-outline-light"><i
                                       class="ri-add-fill" type="button" onclick="createKey()"><span class="pl-1">Tạo key</span></i>
                               </button>
                               </span>
@@ -105,17 +106,17 @@
             <td>${item.id}</td>
             <td style="
     max-width: 200px;
-    word-break: break-all;" title="${item.key}">${item.key}</td>
+    word-break: break-all;" title="${item.key}" onclick="copyToClipboard(this)">${item.key}</td>
             <jsp:useBean id="formatter" class="services.DateTimeFormat"/>
             <td>${formatter.format(item.dayReceive)}</td>
             <td id="dayExpired">${formatter.format(item.dayExpired)}</td>
             <td id="dayCanceled">${formatter.format(item.dayCanceled)}</td>
             <td id="renderIsActive">
               <c:if test="${item.status==1}">
-              <span class="badge iq-bg-success">
+              <span class="status iq-bg-success">
 															</c:if>
 															<c:if test="${item.status==0}">
-																<span class="badge iq-bg-danger">
+																<span class="status iq-bg-danger">
 															</c:if>
                                                                     ${item.statusDescription}</span>
             </td>
@@ -139,9 +140,10 @@
   <!-- Footer Section End -->
 </div>
 <!-- Js Plugins -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+
 <script src="js/jquery-3.3.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
@@ -159,7 +161,18 @@
 </script>
 <script>
   var tableKey;
-
+  function copyToClipboard(element) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).html()).select();
+    document.execCommand("copy");
+    $temp.remove();
+    Swal.fire(
+            'Good job!',
+            'Sao chép khóa thành công!',
+            'success'
+    )
+  }
   $(document).ready(function () {
     tableKey=$('#key-list-table').DataTable({
       "stripeClasses": [],
@@ -286,6 +299,7 @@
       if (result.isConfirmed) {
         let addPublicKey = $(tdArray[0]).text();
         let addDayExpired = $($(tdArray[1]).find("#addDayExpired")).val();
+        document.getElementById("loadingAnime").style.display="block";
         $.ajax({
           url: "AddPublicKey",
           type: "post",
@@ -294,6 +308,7 @@
             addDayExpired : addDayExpired,
           },
           success: function (data) {
+            document.getElementById("loadingAnime").style.display="none";
             if (data.status === 400) {
               Swal.fire({
                 icon: 'error',
@@ -305,7 +320,7 @@
 
             let key = JSON.parse((JSON.parse(data)).newKey);
             let status = key.status;
-            let statusString = key.status==1?`<span class="badge iq-bg-success">`:`<span class="badge iq-bg-danger">`;
+            let statusString = key.status==1?`<span class="status iq-bg-success">`:`<span class="status iq-bg-danger">`;
             let bt = key.status==1?`<button class="btn btn-danger"type="button" id="lostBt" onclick="lostKey(this)">
                       <fmt:message>button.lost</fmt:message>
                     </button>`:"";
@@ -313,7 +328,7 @@
             +`<td>`+key.id+`</td>
             <td style="
     max-width: 200px;
-    word-break: break-all;" title="`+key.key+`">`+key.key+`</td>
+    word-break: break-all;" title="`+key.key+`" onclick="copyToClipboard(this)">`+key.key+`</td>
             <td  >`+key.dayReceive+`</td>
             <td id="dayExpired">`+key.dayExpired+`</td>
             <td id="dayCanceled">`+key.dayCanceled+`</td>
@@ -335,7 +350,7 @@
               )
           },
           error: function (xhr) {
-
+            document.getElementById("loadingAnime").style.display="none";
               Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -359,10 +374,12 @@
       confirmButtonText: 'Xác nhận!'
     }).then((result) => {
       if (result.isConfirmed) {
+        document.getElementById("loadingAnime").style.display="block";
         $.ajax({
           url: "LostKey",
           type: "post",
           success: function (data) {
+            document.getElementById("loadingAnime").style.display="none";
             let dataParse = JSON.parse(data);
             let isSuccess = dataParse.isSuccess;
             let keyDisable = JSON.parse(dataParse.key);
@@ -371,7 +388,7 @@
 
               $(button).closest("tr").find("#dayExpired").html(keyDisable.dayExpired);
               $(button).closest("tr").find("#dayCanceled").html(keyDisable.dayCanceled);
-              $(button).closest("tr").find("#renderIsActive").html(`<span class="badge iq-bg-danger">Đã hết hạn</span>`);
+              $(button).closest("tr").find("#renderIsActive").html(`<span class="status iq-bg-danger">Đã hết hạn</span>`);
               $(button).remove();
               Swal.fire({
                 icon: 'success',
@@ -379,6 +396,7 @@
                 text: 'Vô hiệu hóa thành công!',
               })
             }else{
+
               Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -387,7 +405,7 @@
             }
           },
           error: function (xhr) {
-
+            document.getElementById("loadingAnime").style.display="none";
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -411,12 +429,14 @@
       confirmButtonText: 'Xác nhận!'
     }).then((result) => {
       if (result.isConfirmed) {
+        document.getElementById("loadingAnime").style.display="block";
         $.ajax({
           url: "CreateKey",
           type: "post",
           success: function (data) {
+            document.getElementById("loadingAnime").style.display="none";
                let key = JSON.parse((JSON.parse(data)).key);
-                 let statusString = key.status==1?`<span class="badge iq-bg-success">`:`<span class="badge iq-bg-danger">`;
+                 let statusString = key.status==1?`<span class="status iq-bg-success">`:`<span class="status iq-bg-danger">`;
                  let bt = key.status==1?`<button class="btn btn-danger" id="lostBt" type="button" onclick="lostKey(this)">
                       <fmt:message>button.lost</fmt:message>
                     </button>`:"";
@@ -424,7 +444,7 @@
                          +`<td>`+key.id+`</td>
             <td style="
     max-width: 200px;
-    word-break: break-all;" title="`+key.key+`">`+key.key+`</td>
+    word-break: break-all;" title="`+key.key+`" onclick="copyToClipboard(this)">`+key.key+`</td>
             <td >`+key.dayReceive +`</td>
             <td id="dayExpired">`+key.dayExpired+`</td>
             <td id="dayCanceled"></td>
@@ -444,7 +464,7 @@
                  }
                  $($(firstRow).find("#dayCanceled")).html(key.dayReceive);
                  $($(firstRow).find("#dayExpired")).html(key.dayReceive);
-                 $($(firstRow).find("#renderIsActive")).html(`<span class="badge iq-bg-danger">Đã hết hạn</span>`);
+                 $($(firstRow).find("#renderIsActive")).html(`<span class="status iq-bg-danger">Đã hết hạn</span>`);
                  $("#key-list-table").prepend(appendInsert);
                  Swal.fire({
                    icon: 'success',
@@ -453,6 +473,7 @@
                  })
           },
           error: function (xhr) {
+            document.getElementById("loadingAnime").style.display="none";
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
