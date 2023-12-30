@@ -301,7 +301,9 @@
             <div id="mobile-menu-wrap"></div>
 
         </div>
-
+    <div id="loadingAnime">
+        <div class="loadingAnime"></div>
+    </div>
 </header>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
