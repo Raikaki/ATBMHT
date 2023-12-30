@@ -222,6 +222,7 @@
         var captureId = $("#captureId").val();
         var billId = $("#billId").val();
         const refundValue = await convertCurrency();
+        document.getElementById("loadingAnime").style.display="block";
         $.ajax({
             type: "POST",
             url: "refund", // Tên servlet hoặc đường dẫn tương ứng
@@ -233,11 +234,29 @@
             },
 
             success: function (response) {
+                document.getElementById("loadingAnime").style.display="none";
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Refund success',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 $("#result").html(response);
                 $("#refundButton").hide();
+
+
             },
             error: function (error) {
-                $("#result").html("Error in refund process: " + error.responseText);
+                document.getElementById("loadingAnime").style.display="none";
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Refund fail',
+
+                    showConfirmButton: true
+
+                });
             }
         });
     }

@@ -157,23 +157,22 @@
                     <%--                        <button id="buyMovie" >Xác nhận</button>--%>
                     <%--                    </a>--%>
                     <a href="${check}?action=back">
-                        <button id="buyMovie2">Quay lại</button>
+                        <button id="buyMovie2">Back</button>
                     </a>
-                    <button id="verifyOrderButton" class="verifyOrderButton" style="display: block;" onclick="verifyOrder()">Thanh toán
-                        ngay
+                    <button id="verifyOrderButton" class="verifyOrderButton" style="display: block;" onclick="verifyOrder()">Pay now
                     </button>
                     <div id="paypal-button-container" style="display: none;"></div>
 <%--                    <button id="verifyOrderButton" style="display: block;" onclick="verifyOrder()">Xác thực đơn hàng--%>
 <%--                    </button>--%>
 
                     <div class="dialog" style="  left: 45%!important; top: 40%!important">
-                        <div id="dialog1" title="Xác thực đơn hàng"
+                        <div id="dialog1" title="Order confirmation"
                              style=" display: block; width: auto;height: auto;   ">
                             <form>
                                 <label for="KeyFile">Choose File</label>
                                 <input type="file" id="KeyFile" name="KeyFile">
                             </form>
-                            <button onclick="sendFileDataToServer()">Xác thực</button>
+                            <button onclick="sendFileDataToServer()">SIGN</button>
                         </div>
                     </div>
                 </div>

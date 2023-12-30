@@ -3,6 +3,7 @@ package walletController;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
+import database.DAOBills;
 import database.DAOMovie;
 import model.Account;
 import model.Movie;
@@ -34,8 +35,6 @@ public class RefundServlet extends HttpServlet {
         List<Movie> movieList = (List<Movie>) session.getAttribute("bill_movies");
         System.out.println(movieList);
         String captureId = request.getParameter("captureId");
-        String refundValue = request.getParameter("refundValue");
-        System.out.println(refundValue);
         try {
             // Lấy thông tin capture từ PayPal
             Capture capture = Capture.get(apiContext, captureId);
@@ -49,7 +48,7 @@ public class RefundServlet extends HttpServlet {
             Amount amount = new Amount();
             amount.setCurrency("USD").setTotal(capture.getAmount().getTotal());  // Số tiền bạn muốn hoàn tiền
             refundRequest.setAmount(amount);
-
+            System.out.println(amount);
             // Thực hiện hoàn tiền
             Refund refund = capture.refund(apiContext, refundRequest);
 
@@ -57,6 +56,7 @@ public class RefundServlet extends HttpServlet {
             if (refund.getState().equals("completed")) {
                 response.getWriter().println("Refund successful");
                 session.removeAttribute("bill_movies");
+                DAOBills.setIsRefund(Integer.parseInt(id));
             } else {
                 response.getWriter().println("Refund failed");
             }
