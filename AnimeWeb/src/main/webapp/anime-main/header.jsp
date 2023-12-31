@@ -98,14 +98,14 @@
 
             </div>
             <div class="col-lg-3">
-                <c:if test="${not empty sessionScope.user}">
-                    <div class="vallet">
-                        <c:url var="wallet" value="/anime-main/walletView"/>
-                        <a href="${wallet}"><i class="fas fa-wallet fa-lg" style="color: #ffffff;"></i></a>
-                        <fmt:formatNumber value="${sessionScope.user.balance}"
-                                          type="number" pattern="#,##0"/> VND
-                    </div>
-                </c:if>
+<%--                <c:if test="${not empty sessionScope.user}">--%>
+<%--                    <div class="vallet">--%>
+<%--                        <c:url var="wallet" value="/anime-main/walletView"/>--%>
+<%--                        <a href="${wallet}"><i class="fas fa-wallet fa-lg" style="color: #ffffff;"></i></a>--%>
+<%--                        <fmt:formatNumber value="${sessionScope.user.balance}"--%>
+<%--                                          type="number" pattern="#,##0"/> VND--%>
+<%--                    </div>--%>
+<%--                </c:if>--%>
                 <div class="header__right2">
                     <c:choose>
                     <c:when test="${not empty sessionScope.user}">
@@ -269,7 +269,14 @@
                                 <li>
                                     <a href="${bill}"><fmt:message>content.bill</fmt:message> </a>
                                 </li>
+<%--                                <li>--%>
 
+<%--                                    <c:url value="/anime-main/recharge" var="reCharge"/>--%>
+<%--                                    <a href="${reCharge}"><fmt:message>content.recharge</fmt:message> <i--%>
+<%--                                            class="fas fa-credit-card"--%>
+<%--                                            style="color: #fafafa;"></i></a>--%>
+
+<%--                                </li>--%>
 
                             </ul>
                         </nav>

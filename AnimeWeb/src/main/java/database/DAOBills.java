@@ -78,6 +78,25 @@ public class DAOBills {
         );
     }
 
+    public static boolean setIsRefund(int idBill) {
+        try {
+            Jdbi jdbi = JDBiConnector.me();
+            String query = "UPDATE bills SET isRefund = 1 WHERE id = :id AND isDelete = 0";
+
+            int updatedRows = jdbi.withHandle(handle ->
+                    handle.createUpdate(query)
+                            .bind("id", idBill)
+                            .execute()
+            );
+
+            return updatedRows > 0; // Returns true if at least one row was updated
+        } catch (Exception e) {
+            // Log or handle the exception appropriately
+            e.printStackTrace();
+            return false; // or throw a custom exception
+        }
+    }
+
     public static boolean saveSignatureToBill(Bill bill, String signature) throws Exception {
         Jdbi me = JDBiConnector.me();
         String query = "UPDATE `bills` SET `hash` = :hash WHERE (`id` = :idBill);";
