@@ -269,14 +269,7 @@
                                 <li>
                                     <a href="${bill}"><fmt:message>content.bill</fmt:message> </a>
                                 </li>
-                                <li>
 
-                                    <c:url value="/anime-main/recharge" var="reCharge"/>
-                                    <a href="${reCharge}"><fmt:message>content.recharge</fmt:message> <i
-                                            class="fas fa-credit-card"
-                                            style="color: #fafafa;"></i></a>
-
-                                </li>
 
                             </ul>
                         </nav>

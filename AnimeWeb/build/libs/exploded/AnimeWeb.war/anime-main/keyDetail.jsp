@@ -237,7 +237,7 @@
                                             <td contenteditable="true"><input name="addDayExpired" id="addDayExpired" type="date"></td>
                                             <td>
                                                <span class="table-remove">
-                                               <button type="button" class="btn btn-sm iq-bg-success btn-rounded btn-sm my-0" style="background:#ecfff6 !important;color: #65f9b3!important" onclick="submitAdd(this)" id="submitAddButton">Submit</button>
+                                               <button type="button" class="btn btn-sm iq-bg-success btn-rounded btn-sm my-0" onclick="submitAdd(this)" id="submitAddButton">Submit</button>
                                                 </span>
                                             </td>
                                         </tr>
